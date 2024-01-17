@@ -87,7 +87,7 @@ class App extends FlowApp{
 	* initlizing data folder error handler
 	*/
 	dataDirInitError(){
-		console.log(`Please start app with --init=/path/to/data/dir or --init for default (~/.kdx/data)`);
+		console.log(`Please start app with --init=/path/to/data/dir or --init for default (~/.karlsen-desktop/data)`);
 		this.exit();
 	}
 

@@ -25,12 +25,12 @@ class Build {
         if(this.args.folder)
             this.FOLDER = this.args.folder;
         else
-            this.FOLDER = path.join(os.homedir(),'.kdx','build');
+            this.FOLDER = path.join(os.homedir(),'.karlsen-desktop','build');
         //this.FOLDER = path.join(__dirname,this.args['folder'] || '.build');
         this.CACHE = path.join(this.FOLDER,'cache');
         this.TOOLS = path.join(this.FOLDER,'tools');
         this.BUILD = path.join(this.FOLDER,'build');
-        this.BIN = path.join(os.homedir(),'.kdx','bin',this.PLATFORM_ARCH);
+        this.BIN = path.join(os.homedir(),'.karlsen-desktop','bin',this.PLATFORM_ARCH);
         [this.CACHE,this.TOOLS,this.BUILD,this.BIN].forEach(f=>mkdirp.sync(f));
 
         if(this.PLATFORM == 'windows')
@@ -193,7 +193,7 @@ Where <flags> are:
             this.log('Syncing repos...');
 
             this.TOOLS = path.join(this.FOLDER,'tools');
-            // this has migrated to ~/.kdx/bin 
+            // this has migrated to ~/.karlsen-desktop/bin 
             // this.BIN = path.join(__dirname,`../bin/${this.PLATFORM_ARCH}/`);
             //
             this.BUILD = path.join(this.FOLDER,'build');
