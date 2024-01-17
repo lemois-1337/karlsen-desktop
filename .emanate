@@ -1,26 +1,23 @@
 "use strict";
-//sudo emanate --miner --miner-debug
-
-//const KASPA_DEFAULT_BRANCH = 'v0.11.7-dev'; //'master';
-const KASPA_DEFAULT_BRANCH = 'master';
+const KARLSEN_DEFAULT_BRANCH = 'master';
 const MINER_DEFAULT_BRANCH = 'main';
 
 const E = new Emanator(__dirname, {
     type : argv.includes('build') || flags.innosetup ? 'NODE+NWJS' : 'UTIL',
-    guid : 'c1072045-6d98-44d8-9aa5-e9be6c79bd01',
-    group : 'Kaspa',
-    ident : 'kdx',
+    guid : '8d51c029-f5dc-44d8-b453-f93629fee7b7',
+    group : 'Karlsen',
+    ident : 'karlsen-desktop',
     suffix : flags.full ? '-dev' : '',
-    title : 'KDX',
-    banner : 'KDX',
+    title : 'Karlsen Desktop',
+    banner : 'Karlsen Desktop',
     git : 'git@github.com:aspectron/kdx',
     author : "ASPECTRON Inc.",
     url : "http://aspectron.com",
-    //archive : true,
+    // archive : true,
     folder : true,
     standalone : true,
     production: true,
-    //DMG: true,
+    // DMG: true,
     nwjs : { version : '0.55.0' },
     resources : 'resources/setup',
 
@@ -32,9 +29,6 @@ const E = new Emanator(__dirname, {
                 })
             }
         }
-
-//        if(E.PLATFORM == 'macos')
-//            manifest.files.push('apps');
 
         return manifest;
     },
@@ -54,51 +48,39 @@ E.aux_dmg_files = async (root) => {
     //    E.copy(process.argv[0], root);
 }
 
-
-
 const go = await E.modules.go('go1.16.0');
 const cargo = await E.modules.cargo('1.59.0');
 const git = await E.modules.git();
 const gcc = await E.modules.gcc();
 const npm = await E.modules.npm({ production : true });
+const karlsend = E.task('karlsend', ['origin'], async () => {
 
-
-
-
-const kaspad = E.task('kaspad', ['origin'], async () => {
-
-    //return true;
     if(E.PLATFORM == 'windows') {
         process.env.PATH = ['C:\\TDM-GCC-64\\bin', ...process.env.PATH.split(';')].join(';');
     }
 
-    let dest = path.join(go.SRC,'github.com/kaspanet/');
+    let dest = path.join(go.SRC,'github.com/karlsen-network/');
     if((E.flags.reset || E.flags.clean) && fs.existsSync(dest))
         await E.emptyDir(dest);
 
-    const branch = E.flags['branch'] || KASPA_DEFAULT_BRANCH || 'master';
-    
+    const branch = E.flags['branch'] || KARLSEN_DEFAULT_BRANCH || 'master';
+
     console.log('branch:',branch);
-    
-    //const repos = { };
-    const repos = [`kaspad:${branch}`];
-    if(E.flags['with-extras']) {
-        repos.push(`txgen:${branch}`,`kasparov:${KASPA_DEFAULT_BRANCH}`);
-    }
+
+    const repos = [`karlsend:${branch}`];
 
     console.log("REPOS:".brightMagenta,repos);
 
     for(const repo of repos) {
         let [name, git_branch] = repo.split(':');
-        console.log(`git clone https://github.com/kaspanet/${name} branch: ${git_branch || 'master'}`.brightYellow);
-        await git.clone(`https://github.com/kaspanet/${name}`,dest, {branch : git_branch || 'master'});
+        console.log(`git clone https://github.com/karlsen-network/${name} branch: ${git_branch || 'master'}`.brightYellow);
+        await git.clone(`https://github.com/karlsen-network/${name}`,dest, {branch : git_branch || 'master'});
     }
 
     let targets = [
-        'kaspad',
-        ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`),
+        'karlsend',
+        ...fs.readdirSync(path.join(dest,'karlsend/cmd')).map(f => `karlsend/cmd/${f}`),
     ];
-
 
     let rename = {}
     console.log('Starting target processing...')
@@ -128,13 +110,10 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
         E.copy(path.join(folder,file),path.join(E.BIN,dest));
         E.registerFirewallRule({ name, file : dest, binary : true });
     })
-
-    //E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
 });
 
 const miner = E.task('miner', ['origin'], async () => {
 
-    //return true;
     if(E.PLATFORM == 'windows') {
         process.env.PATH = ['C:\\TDM-GCC-64\\bin', ...process.env.PATH.split(';')].join(';');
     }
@@ -146,12 +125,11 @@ const miner = E.task('miner', ['origin'], async () => {
         await E.emptyDir(dest);
 
     const branch = E.flags['miner-branch'] || MINER_DEFAULT_BRANCH || 'main';
-    
+
     console.log('miner branch:', branch);
     console.log('miner dest:', dest);
-    
-    //const repos = { };
-    const repos = [`kaspa-miner:${branch}`];
+
+    const repos = [`karlsen-miner:${branch}`];
     console.log("REPOS:".brightMagenta,repos);
 
     for(const repo of repos) {
@@ -160,42 +138,27 @@ const miner = E.task('miner', ['origin'], async () => {
         await git.clone(`https://github.com/${account}/${name}`, dest, {branch : git_branch || 'master'});
     }
 
-    let minerDest = path.join(dest, "kaspa-miner");
+    let minerDest = path.join(dest, "karlsen-miner");
     console.log('Starting miner build processing...')
 
     let release = !E.flags['miner-debug'];
     let args = {
         release,
-        p:['kaspa-miner']
+        p:['karlsen-miner']
     }
 
-//    if(E.PLATFORM != 'macos'){
-//        args.p.push('kaspacuda', 'kaspaopencl');
-//        if(E.flags['miner-overclock'])
-//            args.features = "default,kaspacuda/overclock";
-//    }
-
     await cargo.build(minerDest, args);
-    
+
     let targetFolder = path.join(minerDest, 'target', release?'release':'debug');
 
-    let file = 'kaspa-miner';
+    let file = 'karlsen-miner';
     let name = `${E.title} ${file}`;
-    
 
     file += E.PLATFORM_BINARY_EXTENSION;
     let rename = "gpuminer"+E.PLATFORM_BINARY_EXTENSION;
 
     let files = new Map();
     files.set(file, rename)
-
-//    if(E.PLATFORM == 'windows'){
-//        files.set('kaspacuda.dll', 0)
-//        files.set('kaspaopencl.dll', 0)
-//    }else if(E.PLATFORM == 'linux'){
-//        files.set('kaspacuda.so', 0)
-//        files.set('kaspaopencl.so', 0)
-//    }
 
     files.forEach((destName, srcName)=>{
         if(!destName)
@@ -206,26 +169,22 @@ const miner = E.task('miner', ['origin'], async () => {
 
         //console.log("src", src)
         //console.log("dest", dest)
-        
+
         if(!fs.existsSync(src)) {
             console.log(`Unable to locate source file: ${src}`);
             console.log(`...giving up`);
             process.exit(1);
         }
-        
+
         console.log("E.copy:", src, " -> ", dest)
         E.copy(src, dest);
         E.registerFirewallRule({ name, file : destName, binary : true });
     })
-
-
-    //E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
 });
 
 E.task('remote', ['origin'], async () => {
 
     let files = (E.manifest.files||[]).map(f=>{
-        // console.log(E.REPO,'->',E.BUILD, f);
         return E.copy(path.join(E.REPO,f), path.join(E.BUILD, f));
     })
     E.log(`copying ${files.length} items...`);
@@ -236,7 +195,7 @@ E.task('remote', ['origin'], async () => {
 })
 
 if(!E.flags.miner){
-    const aux_deps = E.flags.auxiliary ? ['kaspad','remote'] : ['kaspad', 'miner']
+    const aux_deps = E.flags.auxiliary ? ['karlsend','remote'] : ['karlsend', 'miner']
     E.task('done', aux_deps, async () => {
     })
 }
@@ -268,12 +227,10 @@ if(E.flags.i18n){
     })
 }
 
-
-if(E.flags['local-binaries'] || E.flags['kaspa'] || E.flags.miner) {
+if(E.flags['local-binaries'] || E.flags['karlsen'] || E.flags.miner) {
     E.BIN = path.join(E.appFolder,'bin', E.PLATFORM_ARCH);
     mkdirp.sync(E.BIN);
 }
-
 
 if(E.flags.link) {
     let list = ['flow-ux','flow-app','flow-utils','flow-rpc','flow-async'];
@@ -286,13 +243,13 @@ else if(E.flags.docker) {
     E.runTask('docker');
 }else if(E.flags.i18n) {
     E.runTask('i18n');
-}else if(E.flags['kaspa']) {
-    await kaspad();
+}else if(E.flags['karlsen']) {
+    await karlsend();
 }else if(E.flags.miner){
     await miner();
 }
 else if(E.flags['local-binaries']) {
-    E.runTask('kaspad');
+    E.runTask('karlsend');
     E.runTask('aptitude');
 }
 else
