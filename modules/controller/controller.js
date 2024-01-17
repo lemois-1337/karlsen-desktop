@@ -10,7 +10,6 @@ const { BroadcastChannelRPC : FlowRPC } = require("@aspectron/flow-rpc");
 const utils = require('@aspectron/flow-utils');
 const util = require('../../lib/utils.js');
 const Manager = require("../../lib/manager.js");
-const Console = require("../../lib/console.js")
 const StatsD = require('node-statsd');
 const semver = require('semver');
 
@@ -145,7 +144,7 @@ class KDXApp extends FlowApp{
 				<h4 slot="info" class="title"><flow-i18n>Data Folder</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
 					Data Folder location is used for storage by all KDX modules. 
-					In default configuration this includes Kaspad blockchain data and Kasparov API database.
+					In default configuration this includes Kaspad blockchain data.
 					This location also contains process log files.
 				</p>
 			</flow-form-control>
@@ -294,9 +293,6 @@ class KDXApp extends FlowApp{
 			<kaspa-wallet .walletMeta='${walletMeta}' hideNetwork hidefaucet 
 				_hideQRScanner hideopenwalletlogo></kaspa-wallet>
 		</tab-content>
-		<tab-content for="console" data-active-display="flex" class="vertical-flex term">
-			<flow-terminal id="kdx-console" class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
-		</tab-content>
 		<app-startup-dialog id="release-notes-dialog"></app-startup-dialog>`
 	}
 	constructor(){
@@ -358,7 +354,6 @@ class KDXApp extends FlowApp{
 		await this.initWallet();
 		await this.initManager();
 		await this.initVersions();
-		await this.initConsole();
 		
 		
 		
@@ -601,12 +596,6 @@ class KDXApp extends FlowApp{
 		let port = parseInt(rpclisten.split(':').pop());
 		return { network, port };
 	}
-	async initConsole() {
-		let terminal = this.qS('#kdx-console');
-		this.console = new Console(this, terminal);
-
-		return Promise.resolve();
-	}
 	async initTheme(){
 		let {theme, invertTerminals} = await this.get("get-app-config");
 		this.setTheme(theme || 'light');
@@ -745,11 +734,6 @@ class KDXApp extends FlowApp{
 		},{
 			title : "SETTINGS",
 			id : "settings"
-		},{
-			title : "CONSOLE",
-			id : "console",
-			disable:true,
-		//	section: 'advanced'
 		}];
 
 		caption["active"] = "wallet";
