@@ -1,5 +1,3 @@
-#!/bin/bash
+#!/usr/bin/bash
 
-emanate --full --local-binaries --docker
-
-
+node_modules/.bin/emanate --full --local-binaries --docker
