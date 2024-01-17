@@ -582,7 +582,7 @@ class KDXApp extends FlowApp{
 		}).filter(o=>o.type=='kaspad').shift();
 
 		if(!kaspad)
-			return null;//{network:"kaspa", port:16110};//{network:"kaspatest", port:16110};
+			return null;//{network:"kaspa", port:42110};//{network:"kaspatest", port:42110};
 
 		const { args } = kaspad;
 		let networkType = ['testnet','devnet','simnet'].filter(v=>args[v] !== undefined).shift() || 'mainnet';
