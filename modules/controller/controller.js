@@ -13,7 +13,7 @@ const Manager = require("../../lib/manager.js");
 const StatsD = require('node-statsd');
 const semver = require('semver');
 
-const {RPC} = require('@kaspa/grpc-node');
+const {RPC} = require('@karlsen/grpc-node');
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
 import {
@@ -27,13 +27,13 @@ window.getLocalSetting = getLocalSetting;
 window.setLocalSetting = setLocalSetting;
 //TODO
 window.PWA_MODULES={};
-window.PWA_MODULES["@kaspa/wallet-pwa"] = "N/A";
+window.PWA_MODULES["@karlsen/wallet-pwa"] = "N/A";
 window.PWA_MODULES["@aspectron/flow-ux"] = "N/A";
-window.PWA_MODULES["@kaspa/ux"] = "N/A";
-window.PWA_MODULES["@kaspa/grpc-web"] = "N/A";
-window.PWA_MODULES["@kaspa/wallet"] = "N/A";
-window.PWA_MODULES["@kaspa/grpc"] = "N/A";
-window.PWA_MODULES["@kaspa/core-lib"] = "N/A";
+window.PWA_MODULES["@karlsen/ux"] = "N/A";
+window.PWA_MODULES["@karlsen/grpc-web"] = "N/A";
+window.PWA_MODULES["@karlsen/wallet"] = "N/A";
+window.PWA_MODULES["@karlsen/grpc"] = "N/A";
+window.PWA_MODULES["@karlsen/core-lib"] = "N/A";
 
 class KarlsenDesktopApp extends FlowApp{
 	render(){
@@ -53,7 +53,7 @@ class KarlsenDesktopApp extends FlowApp{
 		]
 		return html`
 		<flow-caption-bar
-			logo="/resources/images/kaspa-logo-light-bg.png">Karlsen Desktop</flow-caption-bar>
+			logo="/resources/images/karlsen-logo-light-bg.png">Karlsen Desktop</flow-caption-bar>
 		<tab-content for="home">
 			<flow-form-control id="applications" icon="fal:fire" no-help style='display:none;'>
 				<flow-i18n caption>Applications</flow-i18n>
@@ -64,13 +64,13 @@ class KarlsenDesktopApp extends FlowApp{
 				<div id='process-info-table' class="task-info-container">
 				</div>
 			</flow-form-control>
-			<div id='kaspa-resources'>
+			<div id='karlsen-resources'>
 
 				<flow-expandable>
-					<div slot="title" is="i18n-div" caption>KASPA RESOURCES</div>
+					<div slot="title" is="i18n-div" caption>KARLSEN RESOURCES</div>
 					<ul style="font-size: 12px;">
 						<li>
-							<flow-shell-link href="https://docs.kas.pa/kaspa/about-kaspa/get-started">
+							<flow-shell-link href="https://docs.karlsencoin.com/karlsen/karlsen/get-started">
 								<flow-i18n>Documentation</flow-i18n>
 							</flow-shell-link>
 						</li>
@@ -86,7 +86,7 @@ class KarlsenDesktopApp extends FlowApp{
 			<flow-expandable class="donation-addresses" no-info _icon="fal:donate">
 				<div slot="title" is="i18n-div" caption>DONATIONS</div>
 				<p is="i18n-p">
-					if you wish to further the development of the kaspa ecosystem, we accept kaspa donations at the following addresses:
+					if you wish to further the development of the karlsen ecosystem, we accept karlsen donations at the following addresses:
 				</p>
 				${
 					donationAddresses.map((t) => {
@@ -288,8 +288,8 @@ class KarlsenDesktopApp extends FlowApp{
 			<div style="height:192px;"></div>
 		</tab-content>
 		<tab-content for="wallet" class="wallet" data-active-display="flex">
-			<kaspa-wallet .walletMeta='${walletMeta}' hideNetwork hidefaucet 
-				_hideQRScanner hideopenwalletlogo></kaspa-wallet>
+			<karlsen-wallet .walletMeta='${walletMeta}' hideNetwork hidefaucet 
+				_hideQRScanner hideopenwalletlogo></karlsen-wallet>
 		</tab-content>
 		<app-startup-dialog id="release-notes-dialog"></app-startup-dialog>`
 	}
@@ -504,7 +504,7 @@ class KarlsenDesktopApp extends FlowApp{
 		/*
 		manager.on('sync-status', (data) => {
 			//console.log("sync-status:data", data);
-			let wallet = this.wallet || this.qS('kaspa-wallet');
+			let wallet = this.wallet || this.qS('karlsen-wallet');
 			const { networkName, sync, headerCount, blockCount, pastMedianTime, pastMedianTimeDiff } = data;
 			wallet.sync = sync;
 			wallet.networkName = networkName;
@@ -547,7 +547,7 @@ class KarlsenDesktopApp extends FlowApp{
 		});
 	}
 	async initWallet() {
-		let wallet = this.qS('kaspa-wallet');
+		let wallet = this.qS('karlsen-wallet');
 		this.wallet = wallet;
 		this.applyCompoundConfig();
 		wallet.addEventListener("new-wallet", ()=>{
@@ -580,15 +580,15 @@ class KarlsenDesktopApp extends FlowApp{
 		}).filter(o=>o.type=='karlsend').shift();
 
 		if(!karlsend)
-			return null;//{network:"kaspa", port:42110};//{network:"kaspatest", port:42110};
+			return null;//{network:"karlsen", port:42110};//{network:"karlsentest", port:42110};
 
 		const { args } = karlsend;
 		let networkType = ['testnet','devnet','simnet'].filter(v=>args[v] !== undefined).shift() || 'mainnet';
 		let network = {
-			mainnet : 'kaspa',
-			testnet : 'kaspatest',
-			devnet : 'kaspadev',
-			simnet : 'kaspasim'
+			mainnet : 'karlsen',
+			testnet : 'karlsentest',
+			devnet : 'karlsendev',
+			simnet : 'karlsensim'
 		}[networkType];
 		let { rpclisten } = args;
 		let port = parseInt(rpclisten.split(':').pop());
@@ -692,7 +692,7 @@ class KarlsenDesktopApp extends FlowApp{
 			this.themeInputEl.value = theme=="dark";
 		}
 		if(this.caption)
-			this.caption.logo = `/resources/images/kaspa-logo-${theme}-bg.png`
+			this.caption.logo = `/resources/images/karlsen-logo-${theme}-bg.png`
 		this.post("set-app-theme", {theme});
 		document.body.classList.forEach(c=>{
 			if(c.indexOf('flow-theme') === 0 && c!='flow-theme'+theme){
@@ -710,19 +710,19 @@ class KarlsenDesktopApp extends FlowApp{
 		}
 
 		document.body.dispatchEvent(new CustomEvent("flow-theme-changed"));
-		this.querySelector("kaspa-wallet")?.requestUpdate("theme", null)
+		this.querySelector("karlsen-wallet")?.requestUpdate("theme", null)
 	}
 	initCaption(){
 		let caption = this.qS('flow-caption-bar');
 		console.log("caption", caption)
 		this.caption = caption;
 		this.caption.close = this.closeWin;
-		this.caption.logo = `/resources/images/kaspa-logo-${this.theme||"light"}-bg.png`;
+		this.caption.logo = `/resources/images/karlsen-logo-${this.theme||"light"}-bg.png`;
 
 		caption.version = pkg.version;
 
 		caption.tabs = [{
-			title : "KASPA",
+			title : "KARLSEN",
 			id : "home",
 			cls: "home"
 		},{
@@ -790,7 +790,7 @@ class KarlsenDesktopApp extends FlowApp{
 			this.tpl_template = config.ident;
 			this.tpl_network = config.network;
 
-			let miner = Object.keys(config.modules).filter(v=>/^(kaspa|gpu)miner/.test(v));
+			let miner = Object.keys(config.modules).filter(v=>/^(karlsen|gpu)miner/.test(v));
 			if(!miner.length)
 				$(blockgenEl).addClass('no-mining');
 		}
@@ -823,7 +823,7 @@ class KarlsenDesktopApp extends FlowApp{
 			config = await this.setConfigTemplate(config, network);
 			this.configEditor.session.setValue(JSON.stringify(config.modules, null, "\t"));
 
-			let miner = Object.keys(config.modules).filter(v=>/^(kaspa|gpu)miner/.test(v));
+			let miner = Object.keys(config.modules).filter(v=>/^(karlsen|gpu)miner/.test(v));
 			if(miner.length)
 				$(blockgenEl).removeClass('no-mining');
 			else

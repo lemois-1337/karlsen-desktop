@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const { Command, Option } = require('commander');
-const { RPC } = require('@kaspa/grpc-node');
+const { RPC } = require('@karlsen/grpc-node');
 const pkg = require('./package.json');
 const { fstat } = require('fs');
 const { colors } = require('@aspectron/colors.ts');
@@ -88,7 +88,7 @@ class KarlsenInterface {
             ;
 
         program.addHelpText('after',`
-Please run ${'kaspa-rpc help'.yellow} for addition information and examples.        
+Please run ${'karlsen-rpc help'.yellow} for addition information and examples.        
         `)
 
         program
@@ -150,7 +150,7 @@ Examples:
     $ ${`rpc addPeer --help`.yellow}
 
     Get list of UTXOs for an address:
-    $ ${`rpc --verbose getUtxosByAddresses --addresses=[\\"kaspatest:qru9nrs0mjcrfnl7rpxhhe33l3sxzgrc3ypkvkx57u\\"]`.yellow}
+    $ ${`rpc --verbose getUtxosByAddresses --addresses=[\\"karlsentest:qru9nrs0mjcrfnl7rpxhhe33l3sxzgrc3ypkvkx57u\\"]`.yellow}
 
     Monitor DAG Blue Score:
     $ ${`rpc --subscribe notifyVirtualSelectedParentBlueScoreChanged`.yellow}
@@ -158,7 +158,7 @@ Examples:
     Get list of UTXOs for an address (load address list from file):
     $ ${`rpc --verbose getUtxosByAddresses --args=file.js`.yellow}
 
-    Where file.js can contain: ${`{ addresses : ['kaspatest:qru9nrs0mjcrfnl7rpxhhe33l3sxzgrc3ypkvkx57u'] }`.yellow}
+    Where file.js can contain: ${`{ addresses : ['karlsentest:qru9nrs0mjcrfnl7rpxhhe33l3sxzgrc3ypkvkx57u'] }`.yellow}
     (note that the file uses JavaScript syntax and can contain comments or NodeJS code producing an Object)
 
 `);

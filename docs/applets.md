@@ -34,7 +34,6 @@ folder:
       "--karlsen-desktop",
       "--no-auth",
       "--port=8689",
-      "--kasparov=http://localhost:$KASPAROVD-PORT",
       "--mqtt-address=mqtt://localhost:$MQTT-PORT"
     ]
 }

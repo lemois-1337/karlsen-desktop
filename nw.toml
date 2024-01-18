@@ -52,30 +52,30 @@ git = { url = "https://github.com/karlsen-network/karlsend", branch = "master" }
 run = [
     { cmd = "go build" },
     { cmd = "go build", cwd = "cmd/genkeypair" },
-    { cmd = "go build", cwd = "cmd/kaspactl" },
-    { cmd = "go build", cwd = "cmd/kaspawallet" },
+    { cmd = "go build", cwd = "cmd/karlsenctl" },
+    { cmd = "go build", cwd = "cmd/karlsenwallet" },
 ]
 copy = [
     { regex = [
         "karlsend(.exe)?$",
         "genkeypair(.exe)?$",
-        "kaspactl(.exe)?$",
-        "kaspawallet(.exe)?$",
+        "karlsenctl(.exe)?$",
+        "karlsenwallet(.exe)?$",
     ], to = "bin/$PLATFORM-$ARCH", flatten = true },
 ]
 
 [[dependency]]
-name = "kaspa-miner"
+name = "karlsen-miner"
 platform = ["windows", "linux"]
 git = { url = "https://github.com/karlsen-network/karlsen-miner", branch = "main" }
-run = [{ argv = ["cargo","build","--release","-p","kaspacuda"] }]
+run = [{ argv = ["cargo","build","--release","-p","karlsencuda"] }]
 copy = [
     { regex = [
-        "target/release/kaspacuda(.so|.dll)$",
-        "target/release/kaspaopencl(.so|.dll)$",
-        "target/release/kaspa-miner(.exe)?$",
+        "target/release/karlsencuda(.so|.dll)$",
+        "target/release/karlsenopencl(.so|.dll)$",
+        "target/release/karlsen-miner(.exe)?$",
     ], to = "bin/$PLATFORM-$ARCH", flatten = true },
-    # { file = "target/release/kaspa-miner$EXE", to = "bin/$PLATFORM-$ARCH/gpuminer$EXE" },
+    # { file = "target/release/karlsen-miner$EXE", to = "bin/$PLATFORM-$ARCH/gpuminer$EXE" },
 ]
 
 [nwjs]

@@ -165,7 +165,7 @@ class ProcessMonitor {
     filter(list, prop) {
         list = list.filter(proc => {
             let t = proc[prop];
-            return /kaspa|postgres|mosquitto|dag|perfmon/ig.test(t);
+            return /karlsen|postgres|mosquitto|dag|perfmon/ig.test(t);
         })
         return list;
     }

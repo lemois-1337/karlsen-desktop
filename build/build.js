@@ -207,9 +207,9 @@ Where <flags> are:
             const branch = this.args['branch'] || 'master';
         
             const repos = { };
-            repos.kaspa = ['karlsend','kasparov'];
+            repos.karlsen = ['karlsend'];
         
-            for(const repo of repos.kaspa) {
+            for(const repo of repos.karlsen) {
                 this.log(`git clone git@github.com:karlsen-network/${repo}`);
                 await this.clone(`git@github.com:karlsen-network/${repo}`, dest, {branch});
             }
@@ -225,9 +225,6 @@ Where <flags> are:
             // ---
             let targets = [
                 'karlsend',
-                'kasparov/kasparovd',
-                'kasparov/kasparovsyncd',
-                'kasparov/examples/wallet',
                 ...fs.readdirSync(path.join(dest,'karlsend/cmd')).map(f => `karlsend/cmd/${f}`)
             ];
         
@@ -263,7 +260,7 @@ Where <flags> are:
                 fse.copy(path.join(folder,file),path.join(this.BIN,dest));
             })
         
-            fse.copy(path.join(dest,'kasparov','database','migrations'),path.join(this.BIN,'database','migrations'));
+            fse.copy(path.join(dest,'database','migrations'),path.join(this.BIN,'database','migrations'));
 
         } catch(ex) {
             throw ex;

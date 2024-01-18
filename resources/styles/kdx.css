@@ -58,11 +58,11 @@ body{
 	--flow-dialog-btn-padding: 7px 2px;
 	--flow-markdown-icon: url(/node_modules/@aspectron/flow-ux/resources/icons/svg/link.svg);
 
-	--kaspa-wallet-container-padding:0px 5px 5px;
-	--kaspa-wallet-header-margin:0px;
-	--kaspa-wallet-header-border-bottom:0px;
-	--kaspa-wallet-header-padding:0px 10px 5px;
-	--kaspa-wallet-header-logo-diaplay:none;
+	--karlsen-wallet-container-padding:0px 5px 5px;
+	--karlsen-wallet-header-margin:0px;
+	--karlsen-wallet-header-border-bottom:0px;
+	--karlsen-wallet-header-padding:0px 10px 5px;
+	--karlsen-wallet-header-logo-diaplay:none;
 }
 
 body.flow-theme-dark{
@@ -293,7 +293,7 @@ project license {  display: inline-block; }
 project copyright {  display: inline-block; font-size: 12.5px; } 
 project > * { padding: 2px; }
 
-#kaspa-resources ul li {
+#karlsen-resources ul li {
 	font-size: 18px;
 	padding: 6px;
 	--flow-link-font-size:18px;
@@ -383,7 +383,7 @@ fa-icon.warning{--fa-icon-color:red}
     text-overflow: ellipsis;
     font-size: 16px;
     max-width: 500px;
-    min-width: var(--kaspa-wallet-address-input-min-width, 460px);
+    min-width: var(--karlsen-wallet-address-input-min-width, 460px);
     background-color: transparent;
     color: var(--flow-primary-color);
     font-family: "Exo 2";

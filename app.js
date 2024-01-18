@@ -126,7 +126,7 @@ class App extends FlowApp{
 
 	async removeDataDir(){
 		try {
-			let datadir2path = path.join(this.dataFolder, "karlsend-kd0", "kaspa-mainnet", "datadir2");
+			let datadir2path = path.join(this.dataFolder, "karlsend-kd0", "karlsen-mainnet", "datadir2");
 			console.log("removeDataDir: datadir2path", datadir2path)
 			if(fs.existsSync(datadir2path)){
 				await fse.remove(datadir2path);
@@ -160,14 +160,14 @@ class App extends FlowApp{
 	getDefaultConfig(){
 		let config = super.getDefaultConfig();
 
-		if(!process.env['KASPA_JSON_RPC'])
+		if(!process.env['KARLSEN_JSON_RPC'])
 			return config;
 
 		let rpcuser = this.randomBytes();
 		let rpcpass = this.randomBytes();
 		Object.entries(config.modules).forEach(([k,v]) => {
 			const type = k.split(':').shift();
-			if(['karlsend','kasparovd','kasparovsyncd','kaspaminer'].includes(type)) {
+			if(['karlsend','karlsenminer'].includes(type)) {
 				v.args.rpcuser = rpcuser;
 				v.args.rpcpass = rpcpass;
 			}
@@ -286,7 +286,7 @@ class App extends FlowApp{
 		if(network != 'mainnet') {
 			Object.keys(this.config.modules).forEach((k) =>{
 				const [type,ident] = k.split(':');
-				if(/^(kaspa)/.test(type))
+				if(/^(karlsen)/.test(type))
 					this.config.modules[k].args[network] = true;
 			})
 		}
