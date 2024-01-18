@@ -1,18 +1,25 @@
-# KDX Applets
+# Karlsen Desktop Applets
 
-KDX provides a miniature framework that enables you to easily create an NWJS window within KDX that has access to KDX configuration.
+Karlsen Desktop provides a miniature framework that enables you to
+easily create an NWJS window within Karlsen Desktop that has access
+to the configuration.
 
-This is an equivalent to a NodeJs application with a web interface that receives KDX + Kaspa Application Stack configuration on startup.
+This is an equivalent to a NodeJs application with a web interface
+that receives Karlsen Desktop + Karlsen Application Stack
+configuration on startup.
 
-Applets can be located within the KDX application folder inside `apps` subfolder or symlinked to this location.
-Alternatively applets can be configured to run from a custom location via configuration settings.
-
+Applets can be located within the Karlsen Desktop application folder
+inside `apps` subfolder or symlinked to this location. Alternatively
+applets can be configured to run from a custom location via
+configuration settings.
 
 ## Configuration Settings
 
-The following applet configuration settings can should be created inside of KDX module
-configuration settings (located in the *Settings tab*) or can be placed inside the `"kdx"`
-property of `packaje.json` manifest file if located within the apps folder:
+The following applet configuration settings can should be created
+inside of Karlsen Desktop module configuration settings (located in
+the *Settings tab*) or can be placed inside the `"karlsen-desktop"`
+property of `packaje.json` manifest file if located within the apps
+folder:
 
 ```json
 {
@@ -24,7 +31,7 @@ property of `packaje.json` manifest file if located within the apps folder:
     "args": [
       "node",
       "dagviz",
-      "--kdx",
+      "--karlsen-desktop",
       "--no-auth",
       "--port=8689",
       "--kasparov=http://localhost:$KASPAROVD-PORT",
@@ -37,20 +44,23 @@ The following is a `package.json` sample file:
 
 ```json
 {
-    "name" : "my-app",
-    "version" : "1.2.3",
-    "kdx" : { 
-        "name" : "My App",
-        "location" : "http://dagviz.com"
+    "name": "my-app",
+    "version": "1.2.3",
+    "karlsen-desktop": { 
+        "name": "My App",
+        "location": "https://karlsencoin.com"
     }
 }
 ```
 
-Supported properties:
-- `name` - name of the application
-- `location` - URL KDX should open
-- `stop` *optional* - URL to signal KDX shutdown
-- `width` *optional* - Applet window width
-- `height` *optional* - Applet window height
-- `args` *optional* - array of command line arguments to spawn at KDX startup
-- `advanced` *optional* - this option will cause applet to show up only if *Advanced Settings* option is enabled.
+## Supported properties
+
+* `name` - name of the application
+* `location` - URL Karlsen Desktop should open
+* `stop` *optional* - URL to signal Karlsen Desktop shutdown
+* `width` *optional* - Applet window width
+* `height` *optional* - Applet window height
+* `args` *optional* - array of command line arguments to spawn at
+  Karlsen Desktop startup
+* `advanced` *optional* - this option will cause applet to show up
+  only if *Advanced Settings* option is enabled.
