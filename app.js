@@ -126,7 +126,7 @@ class App extends FlowApp{
 
 	async removeDataDir(){
 		try {
-			let datadir2path = path.join(this.dataFolder, "kaspad-kd0", "kaspa-mainnet", "datadir2");
+			let datadir2path = path.join(this.dataFolder, "karlsend-kd0", "kaspa-mainnet", "datadir2");
 			console.log("removeDataDir: datadir2path", datadir2path)
 			if(fs.existsSync(datadir2path)){
 				await fse.remove(datadir2path);
@@ -163,12 +163,11 @@ class App extends FlowApp{
 		if(!process.env['KASPA_JSON_RPC'])
 			return config;
 
-		// disabled as of Kaspad 7.0
 		let rpcuser = this.randomBytes();
 		let rpcpass = this.randomBytes();
 		Object.entries(config.modules).forEach(([k,v]) => {
 			const type = k.split(':').shift();
-			if(['kaspad','kasparovd','kasparovsyncd','kaspaminer'].includes(type)) {
+			if(['karlsend','kasparovd','kasparovsyncd','kaspaminer'].includes(type)) {
 				v.args.rpcuser = rpcuser;
 				v.args.rpcpass = rpcpass;
 			}
@@ -187,10 +186,10 @@ class App extends FlowApp{
 	}
 	setSkipUTXOIndex(skipUTXOIndex){
 		skipUTXOIndex = !!skipUTXOIndex;
-		return this.setModuleArgs("kaspad:", {}, {"skip-utxoindex":skipUTXOIndex})
+		return this.setModuleArgs("karlsend:", {}, {"skip-utxoindex":skipUTXOIndex})
 	}
 	getSkipUTXOIndex(){
-		let {args, params} = this.getModuleArgs("kaspad:");
+		let {args, params} = this.getModuleArgs("karlsend:");
 		return !!params["skip-utxoindex"];
 	}
 	setEnableMining(enableMining){
@@ -299,7 +298,7 @@ class App extends FlowApp{
 	setUpnpIfMissing(upnpEnabled) {
 		if (this.config?.modules) {
 			Object.keys(this.config.modules).forEach((k) =>{
-				if (k.startsWith('kaspad:') && !('upnpEnabled' in this.config.modules[k])) {
+				if (k.startsWith('karlsend:') && !('upnpEnabled' in this.config.modules[k])) {
 					console.info(`${upnpEnabled ? 'Enabling' : 'Disabling'} UPNP for ${k}`);
 					this.config.modules[k].upnpEnabled = upnpEnabled;
 				};

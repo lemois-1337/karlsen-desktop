@@ -67,7 +67,7 @@ class KaspaInterface {
 
     async main() {
         const proto = this.getProto();
-        const methods = proto.KaspadMessage.type.field
+        const methods = proto.KarlsendMessage.type.field
             .filter(({name})=>/request/i.test(name));
 
         if(process.argv.includes('--verbose'))

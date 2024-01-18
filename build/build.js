@@ -207,7 +207,7 @@ Where <flags> are:
             const branch = this.args['branch'] || 'master';
         
             const repos = { };
-            repos.kaspa = ['kaspad','kasparov'];
+            repos.kaspa = ['karlsend','kasparov'];
         
             for(const repo of repos.kaspa) {
                 this.log(`git clone git@github.com:karlsen-network/${repo}`);
@@ -224,11 +224,11 @@ Where <flags> are:
         
             // ---
             let targets = [
-                'kaspad',
+                'karlsend',
                 'kasparov/kasparovd',
                 'kasparov/kasparovsyncd',
                 'kasparov/examples/wallet',
-                ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`)
+                ...fs.readdirSync(path.join(dest,'karlsend/cmd')).map(f => `karlsend/cmd/${f}`)
             ];
         
             if(this.args['with-extras']) {

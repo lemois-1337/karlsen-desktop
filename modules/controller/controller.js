@@ -142,7 +142,7 @@ class KarlsenDesktopApp extends FlowApp{
 				<h4 slot="info" class="title"><flow-i18n>Data Folder</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
 					Data Folder location is used for storage by all Karlsen Desktop
-					modules. In default configuration this includes Kaspad blockchain
+					modules. In default configuration this includes Karlsend blockchain
 					data. This location also contains process log files.
 				</p>
 			</flow-form-control>
@@ -274,7 +274,7 @@ class KarlsenDesktopApp extends FlowApp{
 				<flow-btn slot="input" id="reset-data-folder-btn" class="primary" i18n>Delete data directory and resync</flow-btn>
 				<h4 slot="info" class="title"><flow-i18n>Reset Data Folder</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					It will delete datadir (Data Folder) and restart kaspad node to re-sync
+					It will delete datadir (Data Folder) and restart karlsend node to re-sync
 				</p>
 			</flow-form-control>
 			<flow-form-control icon="fal:database">
@@ -282,7 +282,7 @@ class KarlsenDesktopApp extends FlowApp{
 				<flow-btn slot="input" id="reindex-utxo-btn" class="primary" i18n>Reindex UTXO</flow-btn>
 				<h4 slot="info" class="title"><flow-i18n>Reindex UTXO</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)
+					Start the karlsend node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)
 				</p>
 			</flow-form-control>
 			<div style="height:192px;"></div>
@@ -456,7 +456,7 @@ class KarlsenDesktopApp extends FlowApp{
 			this.initTaskTab(daemon.task);
 			this.refreshApps();
 			const {wallet} = this;
-			if(!wallet || daemon.task.type!='kaspad' || !this.rpcDisconnect){
+			if(!wallet || daemon.task.type!='karlsend' || !this.rpcDisconnect){
 				return
 			}
 
@@ -471,7 +471,7 @@ class KarlsenDesktopApp extends FlowApp{
 		manager.on("before-interrupt", ({daemon, interrupt})=>{
 			console.log("before-interrupt", daemon.task.type, daemon.task)
 			const {wallet} = this;
-			if(!wallet || daemon.task.type!='kaspad')
+			if(!wallet || daemon.task.type!='karlsend')
 				return
 			wallet.disconnectRPC();
 			this.rpcDisconnect = true;
@@ -557,7 +557,7 @@ class KarlsenDesktopApp extends FlowApp{
 				this.manager?.restartMining();
 			}
 		})
-		let settings = await this.get_default_local_kaspad_settings();
+		let settings = await this.get_default_local_karlsend_settings();
 		let verbose = localStorage.rpcverbose == 1;
 		this.wallet.setRPCBuilder(()=>{
 			const { network, port } = settings;
@@ -569,20 +569,20 @@ class KarlsenDesktopApp extends FlowApp{
 		
 		return Promise.resolve();
 	}
-	async get_default_local_kaspad_settings() {
+	async get_default_local_karlsend_settings() {
 		
 		let {config:daemons} = await this.get("get-modules-config");
 		console.log("############### DAEMONS", daemons);
-		let kaspad = Object.entries(daemons).map(([k,v]) => { 
+		let karlsend = Object.entries(daemons).map(([k,v]) => { 
 			const { args } = v;
 			const [type, ident] = k.split(':');
 			return { type, ident, args};
-		}).filter(o=>o.type=='kaspad').shift();
+		}).filter(o=>o.type=='karlsend').shift();
 
-		if(!kaspad)
+		if(!karlsend)
 			return null;//{network:"kaspa", port:42110};//{network:"kaspatest", port:42110};
 
-		const { args } = kaspad;
+		const { args } = karlsend;
 		let networkType = ['testnet','devnet','simnet'].filter(v=>args[v] !== undefined).shift() || 'mainnet';
 		let network = {
 			mainnet : 'kaspa',
@@ -1263,7 +1263,7 @@ ${changelogContent}`;
 		this.showApps(daemons);
 		
 		console.log("initDaemons", daemons);
-		let {params} = this.getModuleArgs('kaspad:', daemons);
+		let {params} = this.getModuleArgs('karlsend:', daemons);
 		let skipUTXOIndexCheck = !!(params?.["skip-utxoindex"])
 		if(skipUTXOIndexCheck)
 			this.wallet.setAttribute('skiputxoindexcheck', true)

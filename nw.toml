@@ -47,7 +47,7 @@ items = [{ copy = { glob = [
     ], to = "$TARGET", hidden = true}}]
 
 [[dependency]]
-name = "kaspad"
+name = "karlsend"
 git = { url = "https://github.com/karlsen-network/karlsend", branch = "master" }
 run = [
     { cmd = "go build" },
@@ -57,7 +57,7 @@ run = [
 ]
 copy = [
     { regex = [
-        "kaspad(.exe)?$",
+        "karlsend(.exe)?$",
         "genkeypair(.exe)?$",
         "kaspactl(.exe)?$",
         "kaspawallet(.exe)?$",
@@ -110,6 +110,6 @@ languages = ["english","french"]
 [firewall]
 application = { direction = "in+out" }
 rules = [
-    { name = "Kaspa Node", program = "bin/windows-x64/kaspad.exe", direction="in+out" },
+    { name = "Kaspa Node", program = "bin/windows-x64/karlsend.exe", direction="in+out" },
     { name = "Kaspa GPU Miner", program = "bin/windows-x64/gpuminer.exe", direction="out" }
 ]
