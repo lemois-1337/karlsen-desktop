@@ -91,7 +91,7 @@ application_icon_position = [100,158]
 system_applications_folder_position = [385,158]
 
 [windows]
-uuid = "c1072045-6d98-44d8-9aa5-e9be6c79bd01"
+uuid = "8d51c029-f5dc-44d8-b453-f93629fee7b7"
 group = "Kaspa"
 # run_on_startup = "everyone"
 run_after_setup = true
