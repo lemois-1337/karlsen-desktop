@@ -457,7 +457,7 @@ function showDepsError() {
 
 Hm.. it looks like you don't have dependencies installed.
 
-Before building Kaspa, you need to do some setup:
+Before building Karlsen, you need to do some setup:
 From the kdx folder:
 
     

@@ -39,7 +39,7 @@ class KarlsenDesktopApp extends FlowApp{
 	render(){
 		let walletMeta = {"generator":"Karlsen Desktop"}
 		let list = [
-			['Karlsen','MIT','Copyright (c) 2023 Kaspa Developers'],
+			['Karlsen','MIT','Copyright (c) 2023 Karlsen Developers'],
 			['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
 //			['PostgreSQL','PostgreSQL','Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br/>Portions Copyright © 1994, The Regents of the University of California'],
 //			['Mosquitto','EDL-V10 EPL-V10','Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors'],
@@ -199,7 +199,7 @@ class KarlsenDesktopApp extends FlowApp{
 					class="block"><flow-i18n>Use Wallet Address for Mining</flow-i18n></flow-checkbox>
 				<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					The Enable Mining option starts / stops all configured Kaspaminer instances.
+					The Enable Mining option starts / stops all configured Karlsenminer instances.
 				</p>
 			</flow-form-control>
 			<!-- flow-form-control icon="fal:drafting-compass" class="advanced-tool">

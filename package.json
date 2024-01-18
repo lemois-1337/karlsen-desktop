@@ -1,6 +1,6 @@
 {
-  "name": "kdx",
-  "description": "Kaspa Desktop eXperience",
+  "name": "karlsen-desktop",
+  "description": "Karlsen Desktop",
   "version": "2.12.10",
   "private": true,
   "main": "kdx.js",

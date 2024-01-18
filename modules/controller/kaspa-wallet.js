@@ -1,6 +1,6 @@
-import {KaspaWallet as BaseKaspaWallet} from '/node_modules/@kaspa/ux/kaspa-ux.js';
+import {KarlsenWallet as BaseKarlsenWallet} from '/node_modules/@kaspa/ux/kaspa-ux.js';
 
-class KaspaWallet extends BaseKaspaWallet{
+class KarlsenWallet extends BaseKarlsenWallet{
 	makeFaucetRequest(subject, args){
 		let origin = 'https://faucet.karlsencoin.com';
 		//origin = 'http://localhost:3000';
@@ -19,4 +19,4 @@ class KaspaWallet extends BaseKaspaWallet{
 	}
 }
 
-KaspaWallet.define("kaspa-wallet")
+KarlsenWallet.define("kaspa-wallet")

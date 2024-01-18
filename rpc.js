@@ -19,7 +19,7 @@ const networks = {
 
 const program = new Command();
 
-class KaspaInterface {
+class KarlsenInterface {
 
 	get options() {
 		if(!this.options_) {
@@ -75,7 +75,7 @@ class KaspaInterface {
 
         program
             .version(pkg.version,'--version')
-            .description(`Kaspa gRPC client ${pkg.version}`)
+            .description(`Karlsen gRPC client ${pkg.version}`)
             .usage('[options] <gRPC method> [gRPC method options]')
             .option('--verbose','display arguments and additional info')
             .addOption(new Option('--testnet','use testnet network').hideHelp())
@@ -125,7 +125,7 @@ Please run ${'kaspa-rpc help'.yellow} for addition information and examples.
                 console.log('');
                 console.log(`Usage: rpc [options] <gRPC method> [gRPC method options]`);
                 console.log('');
-                console.log(`Kaspa gRPC client ${pkg.version}`);
+                console.log(`Karlsen gRPC client ${pkg.version}`);
                 console.log('');
                 console.log('Following gRPC commands are available:');
                 console.log('');
@@ -308,6 +308,6 @@ Examples:
 }
 
 (async()=>{
-    const ki = new KaspaInterface();
+    const ki = new KarlsenInterface();
     await ki.main();
 })();

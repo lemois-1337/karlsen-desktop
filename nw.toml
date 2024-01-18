@@ -92,7 +92,7 @@ system_applications_folder_position = [385,158]
 
 [windows]
 uuid = "8d51c029-f5dc-44d8-b453-f93629fee7b7"
-group = "Kaspa"
+group = "Karlsen"
 # run_on_startup = "everyone"
 run_after_setup = true
 
@@ -110,6 +110,6 @@ languages = ["english","french"]
 [firewall]
 application = { direction = "in+out" }
 rules = [
-    { name = "Kaspa Node", program = "bin/windows-x64/karlsend.exe", direction="in+out" },
-    { name = "Kaspa GPU Miner", program = "bin/windows-x64/gpuminer.exe", direction="out" }
+    { name = "Karlsen Node", program = "bin/windows-x64/karlsend.exe", direction="in+out" },
+    { name = "Karlsen GPU Miner", program = "bin/windows-x64/gpuminer.exe", direction="out" }
 ]
