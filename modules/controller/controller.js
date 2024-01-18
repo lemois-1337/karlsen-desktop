@@ -77,9 +77,9 @@ class KDXApp extends FlowApp{
 							</flow-shell-link>
 						</li>
 						<li><flow-shell-link
-							href="https://github.com/kaspanet/"><flow-i18n>GitHub</flow-i18n></flow-shell-link></li>
+							href="https://github.com/karlsen-network/"><flow-i18n>GitHub</flow-i18n></flow-shell-link></li>
 						<li><flow-shell-link
-							href="https://discord.gg/vMT39xB"><flow-i18n>Discord Chat</flow-i18n></flow-shell-link></li>
+							href="https://discord.gg/ZPZRvgMJDT"><flow-i18n>Discord Chat</flow-i18n></flow-shell-link></li>
 						<li><flow-link
 							id="release-notes-link"><flow-i18n>Release Notes</flow-i18n></flow-link></li>
 					</ul>
@@ -1120,10 +1120,10 @@ class KDXApp extends FlowApp{
 `#	Welcome to KDX ${pkg.version}!
 
 Useful resources:
-- Kaspa Documentation: https://github.com/kaspanet/docs 
-- Kaspa Discord: https://discord.gg/vMT39xB
-- Kaspa GitHub: https://github.com/kaspanet/
-- KDX GitHub: https://github.com/aspectron/kdx
+- Karlsen Documentation: https://github.com/karlsen-network/docs (TODO)
+- Karlsen Discord: https://discord.gg/ZPZRvgMJDT
+- Karlsen GitHub: https://github.com/karlsen-network/
+- Karlsen Desktop GitHub: https://github.com/karlsen-network/karlsen-desktop
 
 ${changelogContent}`;
 		$("#release-notes-link").on("click", ()=>{

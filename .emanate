@@ -10,9 +10,9 @@ const E = new Emanator(__dirname, {
     suffix : flags.full ? '-dev' : '',
     title : 'Karlsen Desktop',
     banner : 'Karlsen Desktop',
-    git : 'git@github.com:aspectron/kdx',
-    author : "ASPECTRON Inc.",
-    url : "http://aspectron.com",
+    git : 'https://github.com/karlsen-network/karlsen-desktop',
+    author : "Karlsen Developers",
+    url : "http://karlsencoin.com",
     // archive : true,
     folder : true,
     standalone : true,
@@ -118,7 +118,7 @@ const miner = E.task('miner', ['origin'], async () => {
         process.env.PATH = ['C:\\TDM-GCC-64\\bin', ...process.env.PATH.split(';')].join(';');
     }
 
-    let account = 'aspectron';//'tmrlvi';
+    let account = 'karlsen-network';
 
     let dest = path.join(cargo.SRCGITHUB, account);
     if((E.flags.reset || E.flags.clean) && fs.existsSync(dest))

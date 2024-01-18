@@ -200,7 +200,7 @@ Where <flags> are:
             this.GOPATH = path.join(this.BUILD,'go');
             this.GOSRC = path.join(this.GOPATH,'src');
             mkdirp.sync(path.join(this.GOSRC,'github.com'));
-            const dest = path.join(this.GOSRC,'github.com/kaspanet/');
+            const dest = path.join(this.GOSRC,'github.com/karlsen-network/');
             if(this.args.reset && fs.existsSync(dest))
                 fse.emptyDirSync(dest);
         
@@ -210,15 +210,15 @@ Where <flags> are:
             repos.kaspa = ['kaspad','kasparov'];
         
             for(const repo of repos.kaspa) {
-                this.log(`git clone git@github.com:kaspanet/${repo}`);
-                await this.clone(`git@github.com:kaspanet/${repo}`, dest, {branch});
+                this.log(`git clone git@github.com:karlsen-network/${repo}`);
+                await this.clone(`git@github.com:karlsen-network/${repo}`, dest, {branch});
             }
             
             if(this.args['with-extras']) {
                 repos.extras = ['miningsimulator', 'txgen'];
                 for(const repo of repos.extras) {
-                    this.log(`git clone git@github.com:kaspanet/${repo}`);
-                    await this.clone(`git@github.com:kaspanet/${repo}`, dest);
+                    this.log(`git clone git@github.com:karlsen-network/${repo}`);
+                    await this.clone(`git@github.com:karlsen-network/${repo}`, dest);
                 }
             }
         

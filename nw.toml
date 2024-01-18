@@ -10,7 +10,7 @@ long = """
 KDX is a desktop wallet and a p2p network node instance. This application
 allows you to participate in the Kaspa network by running a local node
 instance and offers access to a local wallet, compatible with the web
-wallet available at https://wallet.kaspanet.io
+wallet available at https://wallet.karlsencoin.com
 """
 
 [package]
@@ -48,7 +48,7 @@ items = [{ copy = { glob = [
 
 [[dependency]]
 name = "kaspad"
-git = { url = "https://github.com/kaspanet/kaspad", branch = "master" }
+git = { url = "https://github.com/karlsen-network/karlsend", branch = "master" }
 run = [
     { cmd = "go build" },
     { cmd = "go build", cwd = "cmd/genkeypair" },
@@ -67,7 +67,7 @@ copy = [
 [[dependency]]
 name = "kaspa-miner"
 platform = ["windows", "linux"]
-git = { url = "https://github.com/aspectron/kaspa-miner", branch = "main" }
+git = { url = "https://github.com/karlsen-network/karlsen-miner", branch = "main" }
 run = [{ argv = ["cargo","build","--release","-p","kaspacuda"] }]
 copy = [
     { regex = [

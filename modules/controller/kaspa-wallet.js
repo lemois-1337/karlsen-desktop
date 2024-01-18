@@ -2,7 +2,7 @@ import {KaspaWallet as BaseKaspaWallet} from '/node_modules/@kaspa/ux/kaspa-ux.j
 
 class KaspaWallet extends BaseKaspaWallet{
 	makeFaucetRequest(subject, args){
-		let origin = 'https://faucet.kaspanet.io';
+		let origin = 'https://faucet.karlsencoin.com';
 		//origin = 'http://localhost:3000';
 		const {address, amount} = args;
 		let path = {
