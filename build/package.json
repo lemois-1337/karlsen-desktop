@@ -1,6 +1,6 @@
 {
-  "name": "kdx-builder",
-  "description": "KDX builder",
+  "name": "karlsen-desktop-builder",
+  "description": "Karlsen Desktop builder",
   "version": "1.0.0",
   "private": false,
   "main": "build.js",

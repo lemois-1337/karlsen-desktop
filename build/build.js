@@ -39,7 +39,7 @@ class Build {
 
     help() {
         const text = 
-`KDX builder ${pkg.version}
+`Karlsen Desktop builder ${pkg.version}
 Usage: build <flags>
 Where <flags> are:
     go  : go version in 'go1.14.2' format:  --go=go1.14.2
@@ -54,7 +54,7 @@ Where <flags> are:
             if(this.args.help)
                 return this.help();
 
-            this.log(`KDX builder ${pkg.version}`);
+            this.log(`Karlsen Desktop builder ${pkg.version}`);
             await this.preflight();
             await this.build();
 
@@ -317,7 +317,7 @@ Where <flags> are:
             console.log("");
 
             progress(
-                request({ url, headers: { 'User-Agent': 'KDX' } }), 
+                request({ url, headers: { 'User-Agent': 'Karlsen Desktop' } }), 
                 { throttle : 250, delay : 1000 }
             )
             .on('progress', function (state) {

@@ -43,7 +43,7 @@ class App extends FlowApp{
 			try {
 				await fse.remove(this.getConfigFolderPath());
 			} catch(ex) {
-				alert('Error resetting KDX data folder: '+ex);
+				alert('Error resetting Karlsen Desktop data folder: '+ex);
 			}
 			await fse.ensureDir(this.getConfigFolderPath());
 			fs.writeFileSync(networkTagFile, currentNetworkType, { encoding : 'utf8'});

@@ -1,16 +1,16 @@
 [application]
 name = "kdx"
-title = "KDX"
+title = "Karlsen Desktop"
 version = "package.json::version"
-organization = "ASPECTRON Inc"
+organization = "Karlsen Network"
 
 [description]
-short = "Desktop Node and Wallet for Kaspa"
+short = "Desktop Node and Wallet for Karlsen"
 long = """
-KDX is a desktop wallet and a p2p network node instance. This application
-allows you to participate in the Kaspa network by running a local node
-instance and offers access to a local wallet, compatible with the web
-wallet available at https://wallet.karlsencoin.com
+Karlsen Desktop is a desktop wallet and a p2p network node instance. This
+application allows you to participate in the Karlsen network by running a
+local node instance and offers access to a local wallet, compatible with
+the web wallet available at https://wallet.karlsencoin.com
 """
 
 [package]

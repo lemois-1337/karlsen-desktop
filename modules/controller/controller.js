@@ -35,27 +35,25 @@ window.PWA_MODULES["@kaspa/wallet"] = "N/A";
 window.PWA_MODULES["@kaspa/grpc"] = "N/A";
 window.PWA_MODULES["@kaspa/core-lib"] = "N/A";
 
-class KDXApp extends FlowApp{
+class KarlsenDesktopApp extends FlowApp{
 	render(){
-		let walletMeta = {"generator":"KDX"}
+		let walletMeta = {"generator":"Karlsen Desktop"}
 		let list = [
+			['Karlsen','MIT','Copyright (c) 2023 Kaspa Developers'],
 			['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
 //			['PostgreSQL','PostgreSQL','Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br/>Portions Copyright © 1994, The Regents of the University of California'],
 //			['Mosquitto','EDL-V10 EPL-V10','Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors'],
 			['Flow-UX Framework','MIT', 'Copyright (c) ASPECTRON Inc.'],
 			['NWJS','MIT','Copyright (c) 2015 四月橘林'],
 			['Chromium','BSD', 'Copyright (c) The Chromium Authors']
-			// ['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
-			// ['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
 		];
 		let donationAddresses = [
-			["Devfund donations:", "kaspa:precqv0krj3r6uyyfa36ga7s0u9jct0v4wg8ctsfde2gkrsgwgw8jgxfzfc98"],
-			["Mining address:", "kaspa:pzhh76qc82wzduvsrd9xh4zde9qhp0xc8rl7qu2mvl2e42uvdqt75zrcgpm00"],
-			//["KDX/WebWallet donations:", "kaspa:qrncjga8hej9q59q85ge5js6m4y97el6ahp3m87hyzqdtaq6pf0v7xek7x900"],
+			["Karlsen Devfund donations:", "karlsen:qzrq7v5jhsc5znvtfdg6vxg7dz5x8dqe4wrh90jkdnwehp6vr8uj7csdss2l7"],
+			["Karlsen Desktop donations:", "karlsen:qqe3p64wpjf5y27kxppxrgks298ge6lhu6ws7ndx4tswzj7c84qkjlrspcuxw"],
 		]
 		return html`
 		<flow-caption-bar
-			logo="/resources/images/kaspa-logo-light-bg.png">KDX</flow-caption-bar>
+			logo="/resources/images/kaspa-logo-light-bg.png">Karlsen Desktop</flow-caption-bar>
 		<tab-content for="home">
 			<flow-form-control id="applications" icon="fal:fire" no-help style='display:none;'>
 				<flow-i18n caption>Applications</flow-i18n>
@@ -104,7 +102,7 @@ class KDXApp extends FlowApp{
 				}
 			</flow-expandable>
 			<flow-form-control icon="fal:copyright">
-				<flow-i18n>KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br/>
+				<flow-i18n>Karlsen Desktop &amp; Karlsen Copyright (c) 2023 Karlsen Developers<br/>
 				All Rights Reserved.</flow-i18n><br/>
 			</flow-form-control>
 			<div id='license-info'>
@@ -143,9 +141,9 @@ class KDXApp extends FlowApp{
 				
 				<h4 slot="info" class="title"><flow-i18n>Data Folder</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					Data Folder location is used for storage by all KDX modules. 
-					In default configuration this includes Kaspad blockchain data.
-					This location also contains process log files.
+					Data Folder location is used for storage by all Karlsen Desktop
+					modules. In default configuration this includes Kaspad blockchain
+					data. This location also contains process log files.
 				</p>
 			</flow-form-control>
 			<flow-form-control icon="fal:palette">
@@ -162,7 +160,7 @@ class KDXApp extends FlowApp{
 				</flow-checkbox>
 				<h4 slot="info" class="title"><flow-i18n>Advanced mode</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					Advanced mode allows you to manually configure, interact with and monitor KDX services.
+					Advanced mode allows you to manually configure, interact with and monitor Karlsen Desktop services.
 				</p>
 			</flow-form-control>
 			<flow-form-control icon="fal:cog" class="advanced-tool">
@@ -171,7 +169,7 @@ class KDXApp extends FlowApp{
 					slot="input"><flow-i18n>Run in Background</flow-i18n></flow-checkbox>
 				<h4 slot="info" class="title"><flow-i18n>Background Execution</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					When enabled, KDX runs itself and it's services hidden in the background
+					When enabled, Karlsen Desktop runs itself and it's services hidden in the background
 					and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
 				</p>
 			</flow-form-control>
@@ -182,7 +180,7 @@ class KDXApp extends FlowApp{
 				<flow-checkbox id="settings-compound-with-latest-change-addr" class="block advanced-tool"
 					slot="input"><flow-i18n>Use latest Change address</flow-i18n></flow-checkbox>
 				<h4 slot="info" class="title"><flow-i18n>Compounding UTXOs</flow-i18n></h4>
-				<p slot="info" is="i18n-p">When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address. </p>
+				<p slot="info" is="i18n-p">When Autocompound enabled, Karlsen Desktop compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address. </p>
 			</flow-form-control>
 			<flow-form-control icon="fal:cube" class="advanced-tool"
 				id="block-generation">
@@ -223,7 +221,7 @@ class KDXApp extends FlowApp{
 
 				<h4 slot="info" class="title"><flow-i18n>Metrics</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					You can stream KDX metrics to your own StatsD-compatible server.
+					You can stream Karlsen Desktop metrics to your own StatsD-compatible server.
 				</p>
 			</flow-form-control-->
 
@@ -237,8 +235,8 @@ class KDXApp extends FlowApp{
 				</div>
 				<h4 slot="info" class="title"><flow-i18n>Service Configuration</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					Configuration editor allows you to customize KDX environment.
-					KDX configuration is represented in JSON
+					Configuration editor allows you to customize Karlsen Desktop environment.
+					Karlsen Desktop configuration is represented in JSON
 					by a list of application/service configuration objects.
 					Each service configuration object is used 
 					to start the corresponding service.
@@ -268,7 +266,7 @@ class KDXApp extends FlowApp{
 				</div>
 				<h4 slot="info" class="title"><flow-i18n>Configuration Templates</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					Configuration templates allow you to load pre-made KDX configurations.
+					Configuration templates allow you to load pre-made Karlsen Desktop configurations.
 				</p>
 			</flow-form-control>
 			<flow-form-control icon="fal:database">
@@ -749,7 +747,7 @@ class KDXApp extends FlowApp{
 		this.tray = tray;
 
 		if(os.platform != 'darwin')
-			tray.title = 'KDX';
+			tray.title = 'Karlsen Desktop';
 
 		let menu = new nw.Menu();
 		this.showMenu = new nw.MenuItem({ 
@@ -1117,7 +1115,7 @@ class KDXApp extends FlowApp{
 		//let readmeContent = fs.readFileSync(path.join(this.manager.appFolder, 'README.md'))+"";
 		let changelogContent = fs.readFileSync(path.join(this.manager.appFolder, 'CHANGELOG.md'))+"";
 		dialog.content = 
-`#	Welcome to KDX ${pkg.version}!
+`#	Welcome to Karlsen Desktop ${pkg.version}!
 
 Useful resources:
 - Karlsen Documentation: https://github.com/karlsen-network/docs (TODO)
@@ -1388,7 +1386,7 @@ ${changelogContent}`;
 			console.log("%c######## closeWin called ######", 'color:red')
 			if(isExit !== true && !this.runInBG){
 				let {btn} = await FlowDialog.show({
-					title:i18n.t("EXIT KDX"),
+					title:i18n.t("EXIT Karlsen Desktop"),
 					body:i18n.t("Are you sure?"),
 					btns:[{
 						text:i18n.t('Cancel'),
@@ -1677,7 +1675,7 @@ ${changelogContent}`;
 			this.setUiLoading(false);
 
 			let {btn} = await FlowDialog.show({
-				title:i18n.t("KDX Update"),
+				title:i18n.t("Karlsen Desktop Update"),
 				body:i18n.t(`Version ${version} is available, would you like to update?`),
 				btns:[{
 					text:i18n.t('No'),
@@ -1693,10 +1691,10 @@ ${changelogContent}`;
 				require('nw.gui').Shell.openExternal('https://kdx.app');
 
 				let confirm = await FlowDialog.show({
-					title:i18n.t("KDX Update"),
+					title:i18n.t("Karlsen Desktop Update"),
 					body:html`Please download the latest version from  <flow-link href="https://kdx.app" target="_blank">https://kdx.app</flow-link>
 					<br/>&nbsp;<br/>
-					KDX will now shutdown`,
+					Karlsen Desktop will now shutdown`,
 					btns:[{
 						text:i18n.t('Cancel'),
 						value:'cancel'
@@ -1718,7 +1716,7 @@ ${changelogContent}`;
 	}
 }
 
-KDXApp.define("kdx-app")
+KarlsenDesktopApp.define("kdx-app")
 
 nw.Window.get().on('new-win-policy', function(frame, url, policy) {
 	// do not open the window
