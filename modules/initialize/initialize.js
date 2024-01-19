@@ -55,7 +55,7 @@ class Initializer{
 	}
 
 	initRPC(){
-		let rpc = new FlowRPC({bcastChannel:'kdx'});
+		let rpc = new FlowRPC({bcastChannel:'karlsen-desktop'});
 
 		this.rpc = rpc;
 

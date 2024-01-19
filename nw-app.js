@@ -33,7 +33,7 @@ class NWApp extends App{
 				frame: false,
 				transparent: false,
 				show: true,
-				icon: 'resources/images/kdx-icon.png'
+				icon: 'resources/images/karlsen-desktop-icon.png'
 				// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
 			}, (win) => {
 				console.log("win", win)
@@ -57,7 +57,7 @@ class NWApp extends App{
 			frame: true,
 			transparent: false,
 			show: true,
-			icon: 'resources/images/kdx-icon.png'
+			icon: 'resources/images/karlsen-desktop-icon.png'
 			// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
 		}, (win) => {
 

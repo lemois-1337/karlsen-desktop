@@ -3,9 +3,9 @@
   "description": "Karlsen Desktop",
   "version": "2.12.10",
   "private": true,
-  "main": "kdx.js",
+  "main": "karlsen-desktop.js",
   "files": [
-    "kdx.js",
+    "karlsen-desktop.js",
     "pty.js",
     "rpc.js",
     "node-app.js",

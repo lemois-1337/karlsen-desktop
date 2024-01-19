@@ -455,7 +455,7 @@ function showDepsError() {
 Hm.. it looks like you don't have dependencies installed.
 
 Before building Karlsen, you need to do some setup:
-From the kdx folder:
+From the karlsen-desktop folder:
 
     
     

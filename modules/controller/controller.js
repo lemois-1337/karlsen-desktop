@@ -371,7 +371,7 @@ class KarlsenDesktopApp extends FlowApp{
 		document.body.classList.toggle("disable", disabled);
 	}
 	initRPC(){
-		let rpc = new FlowRPC({bcastChannel:'kdx'});
+		let rpc = new FlowRPC({bcastChannel:'karlsen-desktop'});
 		this.rpc = rpc;
 
 		rpc.on("disable-ui", (args)=>{
@@ -997,7 +997,7 @@ class KarlsenDesktopApp extends FlowApp{
 		if(statsdAddressInput)
 			this.statsdAddress = statsdAddressInput.value = config.statsdAddress || "";
 		if(statsdPrefixInput)
-			this.statsdPrefix = statsdPrefixInput.value = config.statsdPrefix || "kdx.$HOSTNAME";
+			this.statsdPrefix = statsdPrefixInput.value = config.statsdPrefix || "karlsen-desktop.$HOSTNAME";
 		this.runInBG = runInBGInput.checked;
 		this.enableMining = enableMiningInput?.checked||!!config.enableMining;
 		this.buildType = config.build || 'generic';
@@ -1529,7 +1529,7 @@ ${changelogContent}`;
 				name:pkg.name,
 				description:pkg.description,
 				folder:app.folder
-			}, pkg.kdx||{})
+			}, pkg.karlsen-desktop||{})
 
 			return this.resolveStrings(config);
 		})
@@ -1555,7 +1555,7 @@ ${changelogContent}`;
 				return;
 
 			let location = app.location;
-			if(!location && app.engines?.kdx) {
+			if(!location && app.engines?.karlsen-desktop) {
 				location = `apps/${app.folder}/${app.main}`;
 			}
 
@@ -1575,7 +1575,7 @@ ${changelogContent}`;
 					title="${app.name}"
 					width="${width}"
 					height="${height}"
-					icon="resources/images/kdx-icon.png"
+					icon="resources/images/karlsen-desktop-icon.png"
 					resizable
 					frame
 					>${`${app.name} - ${app.description}`}</flow-window-link><br/>
@@ -1648,7 +1648,7 @@ ${changelogContent}`;
 		this.updateChecked = true;
 
 		//const url = 'http://localhost:9090/version.json';
-		const url = 'https://kdx.app/version.json';
+		const url = 'https://karlsencoin.com/karlsen-desktop/version.json';
 		let resp = await fetch(url).catch((error) => {
 			alert(error.toString());
 		});
@@ -1657,7 +1657,7 @@ ${changelogContent}`;
 		});
 
 		if(!data) {
-			console.log("missing version data in https://kdx.app/version.json");
+			console.log("missing version data in https://karlsencoin.com/karlsen-desktop/version.json");
 			return false;
 		}
 
@@ -1688,11 +1688,11 @@ ${changelogContent}`;
 			});
 
 			if(btn == 'ok') {
-				require('nw.gui').Shell.openExternal('https://kdx.app');
+				require('nw.gui').Shell.openExternal('https://karlsencoin.com');
 
 				let confirm = await FlowDialog.show({
 					title:i18n.t("Karlsen Desktop Update"),
-					body:html`Please download the latest version from  <flow-link href="https://kdx.app" target="_blank">https://kdx.app</flow-link>
+					body:html`Please download the latest version from  <flow-link href="https://karlsencoin.com" target="_blank">https://karlsencoin.com</flow-link>
 					<br/>&nbsp;<br/>
 					Karlsen Desktop will now shutdown`,
 					btns:[{
@@ -1716,7 +1716,7 @@ ${changelogContent}`;
 	}
 }
 
-KarlsenDesktopApp.define("kdx-app")
+KarlsenDesktopApp.define("karlsen-desktop-app")
 
 nw.Window.get().on('new-win-policy', function(frame, url, policy) {
 	// do not open the window

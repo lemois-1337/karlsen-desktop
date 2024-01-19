@@ -13,7 +13,7 @@ const path = require('path');
 class App extends FlowApp{
 	constructor(options={}){
 		Object.assign(options, {
-			ident: 'kdx',
+			ident: 'karlsen-desktop',
 			appFolder: process.cwd()
 		})
 		super(options);

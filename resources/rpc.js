@@ -13,7 +13,7 @@ class RPC {
 		this.timeout  = 30;
 
 		this.options = Object.assign({
-			bcastChannel:'kdx',
+			bcastChannel:'karlsen-desktop',
 			origin: typeof window !='undefined' ? window.location.origin:'',
 			path:'/rpc',
 			timeout:30

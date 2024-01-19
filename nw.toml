@@ -1,5 +1,5 @@
 [application]
-name = "kdx"
+name = "karlsen-desktop"
 title = "Karlsen Desktop"
 version = "package.json::version"
 organization = "Karlsen Network"
@@ -99,10 +99,10 @@ run_after_setup = true
 [images]
 application="logo.png"
 macos-application="Icon1024.png"
-macos-disk-image="kdx-dmg.png"
+macos-disk-image="karlsen-desktop-dmg.png"
 innosetup-icon="logo.png"
-innosetup-wizard-small="kdx-55x58.bmp"
-innosetup-wizard-large="kdx-164x314.bmp"
+innosetup-wizard-small="karlsen-desktop-55x58.bmp"
+innosetup-wizard-large="karlsen-desktop-164x314.bmp"
 
 [languages]
 languages = ["english","french"]
