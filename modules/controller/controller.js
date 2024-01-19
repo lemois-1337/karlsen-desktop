@@ -69,11 +69,6 @@ class KarlsenDesktopApp extends FlowApp{
 				<flow-expandable>
 					<div slot="title" is="i18n-div" caption>KARLSEN RESOURCES</div>
 					<ul style="font-size: 12px;">
-						<li>
-							<flow-shell-link href="https://docs.karlsencoin.com/karlsen/karlsen/get-started">
-								<flow-i18n>Documentation</flow-i18n>
-							</flow-shell-link>
-						</li>
 						<li><flow-shell-link
 							href="https://github.com/karlsen-network/"><flow-i18n>GitHub</flow-i18n></flow-shell-link></li>
 						<li><flow-shell-link
@@ -1118,7 +1113,6 @@ class KarlsenDesktopApp extends FlowApp{
 `#	Welcome to Karlsen Desktop ${pkg.version}!
 
 Useful resources:
-- Karlsen Documentation: https://github.com/karlsen-network/docs (TODO)
 - Karlsen Discord: https://discord.gg/ZPZRvgMJDT
 - Karlsen GitHub: https://github.com/karlsen-network/
 - Karlsen Desktop GitHub: https://github.com/karlsen-network/karlsen-desktop
