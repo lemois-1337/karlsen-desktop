@@ -47,6 +47,10 @@ class KarlsenDesktopApp extends FlowApp{
 			['NWJS','MIT','Copyright (c) 2015 四月橘林'],
 			['Chromium','BSD', 'Copyright (c) The Chromium Authors']
 		];
+		let copyright = [
+			['Karlsen Desktop','Copyright (c) 2024 Karlsen Developers', 'All Rights Reserved'],
+			['KDX','Copyright (c) 2020 Kaspa Developers', 'All Rights Reserved']
+		];
 		let donationAddresses = [
 			["Karlsen Devfund donations:", "karlsen:qzrq7v5jhsc5znvtfdg6vxg7dz5x8dqe4wrh90jkdnwehp6vr8uj7csdss2l7"],
 			["Karlsen Desktop donations:", "karlsen:qqe3p64wpjf5y27kxppxrgks298ge6lhu6ws7ndx4tswzj7c84qkjlrspcuxw"],
@@ -81,7 +85,7 @@ class KarlsenDesktopApp extends FlowApp{
 			<flow-expandable class="donation-addresses" no-info _icon="fal:donate">
 				<div slot="title" is="i18n-div" caption>DONATIONS</div>
 				<p is="i18n-p">
-					if you wish to further the development of the karlsen ecosystem, we accept karlsen donations at the following addresses:
+					If you wish to further the development of the karlsen ecosystem, we accept karlsen donations at the following addresses:
 				</p>
 				${
 					donationAddresses.map((t) => {
@@ -96,10 +100,6 @@ class KarlsenDesktopApp extends FlowApp{
 					})
 				}
 			</flow-expandable>
-			<flow-form-control icon="fal:copyright">
-				<flow-i18n>Karlsen Desktop &amp; Karlsen Copyright (c) 2023 Karlsen Developers<br/>
-				All Rights Reserved.</flow-i18n><br/>
-			</flow-form-control>
 			<div id='license-info'>
 				<flow-expandable no-info class="license-info" >
 					<div slot="title" is="i18n-div" caption>LICENSE INFORMATION</div>
@@ -114,6 +114,26 @@ class KarlsenDesktopApp extends FlowApp{
 									<license><flow-i18n>${license}</flow-i18n></license>
 									<br/>
 									<copyright><flow-i18n>${copy}</flow-i18n></copyright>
+								</project>`;
+							})}
+						</div>
+					</div>
+				</flow-expandable>
+			</div>
+			<div id='copyright-info'>
+				<flow-expandable no-info class="copyright-info" >
+					<div slot="title" is="i18n-div" caption>COPYRIGHT INFORMATION</div>
+					<div style="font-weight:bold;font-size: 0.85rem;">
+						<div id="copyright-text">
+							${copyright.map((t) => {
+								let [name, copy, right] = t;
+								return html`
+								<project>
+									<name><flow-i18n>${name}</flow-i18n></name>
+									<br/>
+									<copyright><flow-i18n>${copy}</flow-i18n></copyright>
+									<br/>
+									<copyright><flow-i18n>${right}</flow-i18n></copyright>
 								</project>`;
 							})}
 						</div>
