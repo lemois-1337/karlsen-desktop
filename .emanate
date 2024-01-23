@@ -48,7 +48,7 @@ E.aux_dmg_files = async (root) => {
     //    E.copy(process.argv[0], root);
 }
 
-const go = await E.modules.go('go1.16.0');
+const go = await E.modules.go('go1.21.6');
 const cargo = await E.modules.cargo('1.59.0');
 const git = await E.modules.git();
 const gcc = await E.modules.gcc();
