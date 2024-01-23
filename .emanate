@@ -12,20 +12,20 @@ const E = new Emanator(__dirname, {
     banner : 'Karlsen Desktop',
     git : 'https://github.com/karlsen-network/karlsen-desktop',
     author : "Karlsen Developers",
-    url : "http://karlsencoin.com",
+    url : "https://karlsencoin.com",
     // archive : true,
     folder : true,
     standalone : true,
     production: true,
     // DMG: true,
-    nwjs : { version : '0.55.0' },
+    nwjs : { version : '0.83.0' },
     resources : 'resources/setup',
 
     manifest : (manifest) => {
         if(E.flags['with-perfmon'] && !E.flags['no-perfmon']) {
             if(E.PLATFORM != 'macos') {
                 Object.assign(manifest.dependencies,{
-                    "@aspectron/process-list": "*",
+                    "@karlsen/process-list": "*",
                 })
             }
         }

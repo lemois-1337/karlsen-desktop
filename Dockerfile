@@ -29,7 +29,7 @@ RUN rm package-lock.json
 
 
 RUN npm install
-RUN npm install @aspectron/process-list
+RUN npm install @karlsen/process-list
 RUN npm install -g emanator@latest
 RUN emanate --local-binaries --no-ssh
 
