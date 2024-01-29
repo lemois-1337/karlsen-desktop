@@ -64,20 +64,6 @@ copy = [
     ], to = "bin/$PLATFORM-$ARCH", flatten = true },
 ]
 
-[[dependency]]
-name = "karlsen-miner"
-platform = ["windows", "linux"]
-git = { url = "https://github.com/karlsen-network/karlsen-miner", branch = "main" }
-run = [{ argv = ["cargo","build","--release","-p","karlsencuda"] }]
-copy = [
-    { regex = [
-        "target/release/karlsencuda(.so|.dll)$",
-        "target/release/karlsenopencl(.so|.dll)$",
-        "target/release/karlsen-miner(.exe)?$",
-    ], to = "bin/$PLATFORM-$ARCH", flatten = true },
-    # { file = "target/release/karlsen-miner$EXE", to = "bin/$PLATFORM-$ARCH/gpuminer$EXE" },
-]
-
 [nwjs]
 version = "0.83.0"
 ffmpeg = false
@@ -110,6 +96,5 @@ languages = ["english","french"]
 [firewall]
 application = { direction = "in+out" }
 rules = [
-    { name = "Karlsen Node", program = "bin/windows-x64/karlsend.exe", direction="in+out" },
-    { name = "Karlsen GPU Miner", program = "bin/windows-x64/gpuminer.exe", direction="out" }
+    { name = "Karlsen Node", program = "bin/windows-x64/karlsend.exe", direction="in+out" }
 ]

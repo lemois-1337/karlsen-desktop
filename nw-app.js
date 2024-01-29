@@ -80,27 +80,6 @@ class NWApp extends App{
 				return
 			this.setRunInBG(runInBG);
 		});
-//		useWalletForMining
-		rpc.on("set-enable-mining", (args)=>{
-			let {enableMining} = args;
-			if(enableMining == undefined)
-				return
-			this.setEnableMining(enableMining);
-		});
-		rpc.on("set-use-wallet-for-mining", (args, callback)=>{
-			let {useWalletForMining} = args;
-			if(useWalletForMining !== undefined){
-				this.setUseWalletForMining(useWalletForMining);
-			}
-			callback()
-		});
-		rpc.on("set-mining-address", (args, callback)=>{
-			let {address} = args;
-			if(address == undefined)
-				return callback({error:"Invalid address"})
-			this.setMiningAddress(address);
-			callback(null, {config:this.getModulesConfig()})
-		})
 		rpc.on("set-enable-metrics", (args)=>{
 			let {enableMetrics} = args;
 			if(enableMetrics == undefined)

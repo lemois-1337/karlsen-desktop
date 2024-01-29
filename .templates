@@ -12,78 +12,6 @@
 			}
 		}
 	},
-	"cpu-miner" : {
-		"description": "CPU Miner",
-		"modules": {
-			"karlsend:kd0": {
-				"reset-peers": false,
-				"args": {
-					"rpclisten": "0.0.0.0:42110",
-					"listen": "0.0.0.0:42111",
-					"profile": 8110
-				}
-			},
-			"gpuminer:km0": {
-				"args": {
-					"mining-address": "",
-					"threads": 1,
-					"karlsend-address": "localhost",
-					"port": "42110"
-				}
-			}
-		}
-	},
-	"gpu-miner": {
-		"description": "GPU Miner",
-		"modules": {
-			"karlsend:kd0": {
-				"reset-peers": false,
-				"args": {
-					"rpclisten": "0.0.0.0:42110",
-					"listen": "0.0.0.0:42111",
-					"profile": 8110
-				}
-			},
-			"gpuminer:km0": {
-				"args": {
-					"mining-address": "",
-					"cuda-workload": 512,
-					"karlsend-address": "localhost",
-					"port": "42110"
-				}
-			}
-		}
-	},
-	"karlsend-standalone-mining": {
-		"description": "Self-Contained Karlsend Mining",
-		"modules": {
-			"karlsend:kd0": {
-				"reset-peers": false,
-				"args": {
-					"rpclisten": "0.0.0.0:42110",
-					"listen": "0.0.0.0:42111",
-					"profile": 8110
-				}
-			},
-			"karlsend:kd1": {
-				"reset-peers": false,
-				"args": {
-					"rpclisten": "0.0.0.0:42310",
-					"listen": "0.0.0.0:42311",
-					"profile": 8111,
-					"connect": "0.0.0.0:42111"
-				}
-			},
-			"gpuminer:km0": {
-				"args": {
-					"mining-address": "",
-					"t": 1,
-					"karlsend-address": "localhost",
-					"port": "42110"
-				}
-			}
-		}
-	},
 	"karlsend-archival-only" : {
 		"description": "Karlsend Archival Node",
 		"modules": {
@@ -94,28 +22,6 @@
 					"rpclisten": "0.0.0.0:42110",
 					"listen": "0.0.0.0:42111",
 					"profile": 8110
-				}
-			}
-		}
-	},
-	"karlsend-archival-mining": {
-		"description": "Karlsend Archival Node + Miner",
-		"modules": {
-			"karlsend:kd0": {
-				"reset-peers": false,
-				"args": {
-					"archival": null,
-					"rpclisten": "0.0.0.0:42110",
-					"listen": "0.0.0.0:42111",
-					"profile": 8110
-				}
-			},
-			"gpuminer:km0": {
-				"args":{
-					"mining-address": "",
-					"t": 1,
-					"karlsend-address": "localhost",
-					"port": "42110"
 				}
 			}
 		}

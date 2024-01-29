@@ -197,26 +197,6 @@ class KarlsenDesktopApp extends FlowApp{
 				<h4 slot="info" class="title"><flow-i18n>Compounding UTXOs</flow-i18n></h4>
 				<p slot="info" is="i18n-p">When Autocompound enabled, Karlsen Desktop compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address. </p>
 			</flow-form-control>
-			<flow-form-control icon="fal:cube" class="advanced-tool"
-				id="block-generation">
-				<flow-i18n slot="title">Block Generation</flow-i18n>
-				<flow-checkbox id="settings-enable-mining" class="block"
-					><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
-				<flow-input id="mining-address-input" class="block"
-					label="Mining address" apply-btn
-					btnText="Update">
-				</flow-input>
-				<!--div inline-info>
-					Please use the Console tab <i>wallet</i> command to create an address.<br/>
-					Once created, please enter the address in the input above.
-				</div-->
-				<flow-checkbox id="settings-use-wallet-address-for-mining"
-					class="block"><flow-i18n>Use Wallet Address for Mining</flow-i18n></flow-checkbox>
-				<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
-				<p slot="info" is="i18n-p">
-					The Enable Mining option starts / stops all configured Karlsenminer instances.
-				</p>
-			</flow-form-control>
 			<!-- flow-form-control icon="fal:drafting-compass" class="advanced-tool">
 				<flow-i18n caption>Metrics</flow-i18n>
 				<flow-checkbox id="settings-enable-metrics"
@@ -448,7 +428,6 @@ class KarlsenDesktopApp extends FlowApp{
 	async initManager(){
 		let {dataFolder, appFolder, config} = this.initData;
 		let manager = global.manager || new Manager(this, dataFolder, appFolder);
-		manager.enableMining = config.enableMining;
 		if(global.manager){
 			manager.controller = this;
 			manager.dataFolder = dataFolder;
@@ -543,8 +522,6 @@ class KarlsenDesktopApp extends FlowApp{
 			this.initDaemons();
 		}
 
-		manager.enableMining = this.enableMining;
-
 		global.manager = manager;
 	}
 	async initVersions() {
@@ -565,13 +542,6 @@ class KarlsenDesktopApp extends FlowApp{
 		let wallet = this.qS('karlsen-wallet');
 		this.wallet = wallet;
 		this.applyCompoundConfig();
-		wallet.addEventListener("new-wallet", ()=>{
-			if(this.useWalletForMining){
-				//console.log("restartMining:::")
-				this.miningAddress = "";
-				this.manager?.restartMining();
-			}
-		})
 		let settings = await this.get_default_local_karlsend_settings();
 		let verbose = localStorage.rpcverbose == 1;
 		this.wallet.setRPCBuilder(()=>{
@@ -625,29 +595,6 @@ class KarlsenDesktopApp extends FlowApp{
 		this.post("set-run-in-bg", {runInBG});
 		if(this.runInBGInput)
 			this.runInBGInput.value = this.runInBG
-	}
-	setEnableMining(enableMining){
-		this.enableMining = !!enableMining;
-		this.post("set-enable-mining", {enableMining});
-		this.manager.setEnableMining(this.enableMining);
-	}
-	async setUseWalletForMining(useWalletForMining){
-		console.log("setUseWalletForMining", useWalletForMining)
-		this.useWalletForMining = !!useWalletForMining;
-		if(this.miningAddressInput)
-			this.miningAddressInput.disabled = this.useWalletForMining;
-		await this.get("set-use-wallet-for-mining", {useWalletForMining});
-		this.miningAddress = false;
-		this.manager.restartMining();
-	}
-	async setMiningAddress(address, dontRestartMinner=false){
-		let {config} = await this.get("set-mining-address", {address});
-		this.setModuleConfigEditorValue(config);
-		this.miningAddress = address;
-		if(this.miningAddressInput)
-			this.miningAddressInput.value = address;
-		if(!dontRestartMinner)
-			this.manager.restartMining();
 	}
 	setStatsdAddress(statsdAddress){
 		// console.log("setStatsdAddress", address)
@@ -798,16 +745,10 @@ class KarlsenDesktopApp extends FlowApp{
 		}).join('');
 		tplEl.innerHTML = html;
 
-		const blockgenEl = qS("#block-generation");
-
 		if(!this.tpl_template) {
 			let {config} = this.initData;
 			this.tpl_template = config.ident;
 			this.tpl_network = config.network;
-
-			let miner = Object.keys(config.modules).filter(v=>/^(karlsen|gpu)miner/.test(v));
-			if(!miner.length)
-				$(blockgenEl).addClass('no-mining');
 		}
 
 		tplEl.setAttribute('selected',this.tpl_template);
@@ -837,12 +778,6 @@ class KarlsenDesktopApp extends FlowApp{
 			//this.saveModulesConfig(config);
 			config = await this.setConfigTemplate(config, network);
 			this.configEditor.session.setValue(JSON.stringify(config.modules, null, "\t"));
-
-			let miner = Object.keys(config.modules).filter(v=>/^(karlsen|gpu)miner/.test(v));
-			if(miner.length)
-				$(blockgenEl).removeClass('no-mining');
-			else
-				$(blockgenEl).addClass('no-mining');
 		});
 	}
 
@@ -863,9 +798,6 @@ class KarlsenDesktopApp extends FlowApp{
 		let invertTermInput = qS("#settings-invert-terminal");
 		let runInBGInput = qS("#settings-run-in-bg");
 		this.runInBGInput = runInBGInput;
-		let enableMiningInput = qS("#settings-enable-mining");
-		let useWalletForMiningInput = qS("#settings-use-wallet-address-for-mining");
-		let miningAddressInput = qS("#mining-address-input");
 		let scriptHolder = qS('#settings-script');
 		let advancedInput = qS('#settings-advanced');
 		let statsdAddressInput = qS('#settings-statsd-address');
@@ -873,7 +805,6 @@ class KarlsenDesktopApp extends FlowApp{
 		let enableMetricsInput = qS('#settings-enable-metrics');
 		let compoundAutoInput = qS("#settings-auto-compound");
 		let compoundUseLatestAddressInput = qS("#settings-compound-with-latest-change-addr");
-		this.miningAddressInput = miningAddressInput;
 		advancedInput.addEventListener('changed', (e)=>{
 			let advanced = this.advanced = e.detail.checked;
 			let index = this.caption.tabs.forEach((t, index)=>{
@@ -955,17 +886,6 @@ class KarlsenDesktopApp extends FlowApp{
 		runInBGInput.addEventListener('changed', (e)=>{
 			this.setRunInBG(e.detail.checked);
 		});
-		enableMiningInput?.addEventListener('changed', (e)=>{
-			this.setEnableMining(e.detail.checked);
-		});
-		useWalletForMiningInput?.addEventListener('changed', (e)=>{
-			this.setUseWalletForMining(e.detail.checked);
-		});
-		miningAddressInput?.addEventListener('btn-click', async (e)=>{
-			let address = miningAddressInput.value;
-			if(address)
-				this.setMiningAddress(address)
-		})
 		statsdAddressInput?.addEventListener('changed', (e)=>{
 			this.setStatsdAddress(e.detail.value);
 		});
@@ -999,25 +919,13 @@ class KarlsenDesktopApp extends FlowApp{
 		runInBGInput.checked = !!config.runInBG;
 		if(enableMetricsInput)
 			enableMetricsInput.checked = !!config.enableMetrics;
-		if(enableMiningInput)
-			enableMiningInput.checked = !!config.enableMining;
-		this.useWalletForMining = !!config.useWalletForMining
-		if(useWalletForMiningInput)
-			useWalletForMiningInput.checked = this.useWalletForMining;
-		console.log("config.useWalletForMining", this.useWalletForMining)
-		if(miningAddressInput){
-			miningAddressInput.disabled = this.useWalletForMining;
-			miningAddressInput.value = this.getMiningAddressFromConfig(config)
-		}
 		if(statsdAddressInput)
 			this.statsdAddress = statsdAddressInput.value = config.statsdAddress || "";
 		if(statsdPrefixInput)
 			this.statsdPrefix = statsdPrefixInput.value = config.statsdPrefix || "karlsen-desktop.$HOSTNAME";
 		this.runInBG = runInBGInput.checked;
-		this.enableMining = enableMiningInput?.checked||!!config.enableMining;
 		this.buildType = config.build || 'generic';
 	
-		//this.manager.setEnableMining(this.enableMining);
 		flow.samplers.registerSink(this.sampler_sink.bind(this));
 		this.initStatsdServer(this.statsdAddress,this.statsdPrefix);
 
@@ -1085,45 +993,6 @@ class KarlsenDesktopApp extends FlowApp{
 			this.setUiDisabled(false)
 		}
 		this.restartDaemons(false, beforeStartCB);
-	}
-	isMinerWaitingForWalletLogin(){
-		if(this.miningAddress){
-			return false
-		}
-
-		return (this.useWalletForMining && this.wallet);
-	}
-	async getMiningAddress(){
-		if(this.miningAddress){
-			console.log("getMiningAddress: returning", this.miningAddress)
-			return this.miningAddress;
-		}
-		console.log("getMiningAddress: useWalletForMining", this.useWalletForMining)
-		if(this.useWalletForMining && this.wallet){
-			let address = await this.wallet.getMiningAddress();
-			this.miningAddress = address;
-			console.log("getMiningAddress: useWalletForMining, address", this.useWalletForMining, address)
-			if(address)
-				this.setMiningAddress(address, true)
-			return address;
-		}
-		let {config} = await this.get("get-modules-config")
-		let address = this.getMiningAddressFromConfig({modules:config});
-		this.miningAddress = address;
-		console.log("getMiningAddress:miningAddress:", this.miningAddress)
-		return address;
-	}
-	getMiningAddressFromConfig(config){
-		let {modules={}} = config;
-		let address = "";
-		Object.keys(modules).find(key=>{
-			if(key.includes("gpuminer:")){
-				modules[key].args = modules[key].args||{};
-				address = modules[key].args["mining-address"];
-				return !!address
-			}
-		})
-		return address || "";
 	}
 	initReleaseNotes(){
 		let dialog = this.qS("#release-notes-dialog");

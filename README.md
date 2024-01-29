@@ -21,8 +21,6 @@ compatible Windows, Linux and Mac OS X.
 
 * [Node.js 14.0.0+](https://nodejs.org/)
 * [Emanator](https://www.npmjs.com/package/emanator)
-* Rust (latest, used for building [karlsen-miner](https://github.com/karlsen-network/karlsen-miner))
-* CUDA libraries for karlsen miner (depends on the platform)
 
 **NOTE:** Karlsen Desktop build process builds and includes latest
 Karlsen binaries from Git master branches. To build from specific
@@ -34,9 +32,11 @@ To build and deploy Karlsen Desktop production-ready builds, do the
 following:
 
 ```
+mkdir karlsen-build
+cd karlsen-build
+npm install emanator@latest
 git clone https://github.com/karlsen-network/karlsen-desktop
 cd karlsen-desktop
-npm install emanator@latest
 ```
 
 Emanator will help to create standalone desktop applications using
@@ -59,20 +59,20 @@ DMG - Building DMG images on macOS requires `sudo` access in order to
 use system tools such as `diskutil` to generate images: 
 
 ```
-sudo node_modules/.bin/emanate --dmg
+sudo ../node_modules/.bin/emanate --dmg
 ```
 
 To build the Windows portable deployment, run the following command:
 
 ```
-node_modules/.bin/emanate --portable
+../node_modules/.bin/emanate build --archive --portable
 ```
 
 To build the Windows installer, you need to install
 [Innosetup](https://jrsoftware.org/isdl.php) and run:
 
 ```
-node_modules/.bin/emanate --innosetup
+../node_modules/.bin/emanate build --innosetup
 ```
 
 Emanator stores build files in the `~/emanator` folder.
@@ -149,12 +149,11 @@ Each instance of the process is declared using it's **type** (for
 example: `karlsend`) and a unique **identifier** (`kd0`). Most
 process configuration objects support `args` property that allows
 passing arguments or configuration options directly to the process
-executable. The configuration is passed via  configuration file
+executable. The configuration is passed via configuration file
 (karlsend).
 
 Supported process types:
 - `karlsend` - Karlsen full node
-- `karlsenminer` - Karlsen miner
 
 **NOTE:** For Karlsen, to specify multiple connection endpoints,
 you must use an array of addresses as follows: `"args" : { "connect" : [ "peer-addr-port-a", "peer-addr-port-b", ...] }`
@@ -176,7 +175,6 @@ you must use an array of addresses as follows: `"args" : { "connect" : [ "peer-a
 		}
 	},
 	"ident": "karlsend-node-only",
-	"enableMining": false,
 	"network": "mainnet",
 	"upnpEnabled": true,
 	"dataDir": "",

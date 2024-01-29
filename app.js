@@ -167,7 +167,7 @@ class App extends FlowApp{
 		let rpcpass = this.randomBytes();
 		Object.entries(config.modules).forEach(([k,v]) => {
 			const type = k.split(':').shift();
-			if(['karlsend','karlsenminer'].includes(type)) {
+			if(['karlsend'].includes(type)) {
 				v.args.rpcuser = rpcuser;
 				v.args.rpcpass = rpcpass;
 			}
@@ -191,17 +191,6 @@ class App extends FlowApp{
 	getSkipUTXOIndex(){
 		let {args, params} = this.getModuleArgs("karlsend:");
 		return !!params["skip-utxoindex"];
-	}
-	setEnableMining(enableMining){
-		this.config.enableMining = !!enableMining;
-		this.setConfig(this.config);
-	}
-	setUseWalletForMining(useWalletForMining){
-		this.config.useWalletForMining = !!useWalletForMining;
-		this.setConfig(this.config);
-	}
-	setMiningAddress(address){
-		this.setModuleArgs("gpuminer:", {"mining-address": address})
 	}
 	setModuleArgs(search, args={}, params={}){
 		let modules = this.getModulesConfig();
@@ -233,18 +222,6 @@ class App extends FlowApp{
 			return true;
 		})
 		return {args, params};
-	}
-	getMiningAddressFromConfig(config){
-		let {modules={}} = config||this.config;
-		let address = "";
-		Object.keys(modules).find(key=>{
-			if(key.includes("gpuminer:")){
-				modules[key].args = modules[key].args||{};
-				address = modules[key].args["mining-address"];
-				return !!address
-			}
-		})
-		return address || "";
 	}
 	setEnableMetrics(enableMetrics){
 		this.config.enableMetrics = !!enableMetrics;
