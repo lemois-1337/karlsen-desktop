@@ -72,7 +72,7 @@ const karlsend = E.task('karlsend', ['origin'], async () => {
 
     let targets = [
         'karlsend',
-        ...fs.readdirSync(path.join(dest,'karlsend/cmd')).map(f => `karlsend/cmd/${f}`),
+        ...fs.readdirSync(path.join(dest,'karlsend/cmd')).filter(f => f !== 'karlsenminer').map(f => `karlsend/cmd/${f}`),
     ];
 
     let rename = {}
