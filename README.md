@@ -59,7 +59,7 @@ DMG - Building DMG images on macOS requires `sudo` access in order to
 use system tools such as `diskutil` to generate images: 
 
 ```
-sudo ../node_modules/.bin/emanate --dmg
+sudo ../node_modules/.bin/emanate build --dmg
 ```
 
 To build the Windows portable deployment, run the following command:
