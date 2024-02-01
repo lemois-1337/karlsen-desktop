@@ -17,7 +17,7 @@ compatible Windows, Linux and Mac OS X.
 
 ## Building Karlsen Desktop
 
-## Pre-requisites
+### Pre-requisites
 
 * [Node.js 14.0.0+](https://nodejs.org/)
 * [Emanator](https://www.npmjs.com/package/emanator)
