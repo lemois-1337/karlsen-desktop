@@ -19,7 +19,6 @@ signatures = ["SHA256"]
 build = [
     { NPM = { clean = true } }
 ]
-# wasm = "root/wasm"
 resources = "resources/setup"
 output = "setup/$PLATFORM-$ARCH"
 include = [
@@ -65,7 +64,7 @@ copy = [
 ]
 
 [nwjs]
-version = "0.83.0"
+version = "0.78.1"
 ffmpeg = false
 
 [macos-disk-image]
@@ -79,7 +78,6 @@ system_applications_folder_position = [385,158]
 [windows]
 uuid = "8d51c029-f5dc-44d8-b453-f93629fee7b7"
 group = "Karlsen"
-# run_on_startup = "everyone"
 run_after_setup = true
 
 [images]
@@ -91,7 +89,7 @@ innosetup-wizard-small="karlsen-desktop-55x58.bmp"
 innosetup-wizard-large="karlsen-desktop-164x314.bmp"
 
 [languages]
-languages = ["english","french"]
+languages = ["dutch", "english", "finnish", "french", "german", "italian", "polish", "portuguese", "russian", "spanish", "turkish", "ukranian"]
 
 [firewall]
 application = { direction = "in+out" }
