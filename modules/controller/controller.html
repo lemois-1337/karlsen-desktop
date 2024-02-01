@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>KDX</title>
+	<title>Karlsen Desktop</title>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 	<link rel="stylesheet" type="text/css" href="/resources/extern/fonts/fontawesome/css/all.min.css" />
 	<link rel="stylesheet" type="text/css" href="/node_modules/@aspectron/flow-ux/flow-ux.css" />
-	<link rel="stylesheet" type="text/css" href="/node_modules/@kaspa/ux/kaspa-ux.css">
-	<link rel="stylesheet" type="text/css" href="/resources/styles/kdx.css">
+	<link rel="stylesheet" type="text/css" href="/node_modules/@karlsen/ux/karlsen-ux.css">
+	<link rel="stylesheet" type="text/css" href="/resources/styles/karlsen-desktop.css">
 	<script type="importmap">
 		{
 			"imports" : {
@@ -25,9 +25,9 @@
 				"/flow/flow-ux/src/base-element.js": "/node_modules/@aspectron/flow-ux/src/base-element.js",
 				"/flow/flow-ux/src/flow-swipeable.js": "/node_modules/@aspectron/flow-ux/src/flow-swipeable.js",
 				"/flow/flow-ux/src/flow-i18n.js": "/node_modules/@aspectron/flow-ux/src/flow-i18n.js",
-				"@kaspa/wallet": "./kaspa-wallet-module.js",
-				"@kaspa/wallet-worker": "./kaspa-wallet-worker-module.js",
-				"@kaspa/core-lib": "./kaspa-core-lib-module.js"
+				"@karlsen/wallet": "./karlsen-wallet-module.js",
+				"@karlsen/wallet-worker": "./karlsen-wallet-worker-module.js",
+				"@karlsen/core-lib": "./karlsen-core-lib-module.js"
 			}
 		}
 	</script>
@@ -46,9 +46,9 @@
 				}
 			}
 		}
-		var KaspaConfig = {
+		var KarlsenConfig = {
 			workerCorePath: "/modules/controller/wallet-worker-core.js",
-			baseUrl: "/node_modules/@kaspa/ux/",
+			baseUrl: "/node_modules/@karlsen/ux/",
 			debug:true,
 			dontInitiatedComponent:true
 		}
@@ -63,11 +63,11 @@
 	<script src="/resources/extern/scripts/jquery-3.1.1.normal.js"></script>
 	<!-- install xterm, xterm-addon-fit, xterm-addon-web-links node-modules -->
 	<script type="module" src="/node_modules/@aspectron/flow-ux/src/flow-terminal.js"></script>
-	<script type="module" src="./kaspa-wallet.js"></script>
+	<script type="module" src="./karlsen-wallet.js"></script>
 	<script type="text/javascript" src="/resources/rpc.js"></script>
 	<script type="module" src="/modules/controller/controller.js"></script>
 </head>
 <body class="ui-loading">
-	<kdx-app></kdx-app>
+	<karlsen-desktop-app></karlsen-desktop-app>
 </body>
 </html>

@@ -19,7 +19,7 @@ if(platform == 'win32') {
 }
 
 try {
-    ifaces.snapshot = require('@aspectron/process-list').snapshot;
+    ifaces.snapshot = require('@karlsen/process-list').snapshot;
 } catch(ex) {
     ifaces.snapshot = null;
     console.log('snapshot: not available')
@@ -165,7 +165,7 @@ class ProcessMonitor {
     filter(list, prop) {
         list = list.filter(proc => {
             let t = proc[prop];
-            return /kaspa|postgres|mosquitto|dag|perfmon/ig.test(t);
+            return /karlsen|postgres|mosquitto|dag|perfmon/ig.test(t);
         })
         return list;
     }

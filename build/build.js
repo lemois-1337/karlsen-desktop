@@ -25,12 +25,12 @@ class Build {
         if(this.args.folder)
             this.FOLDER = this.args.folder;
         else
-            this.FOLDER = path.join(os.homedir(),'.kdx','build');
+            this.FOLDER = path.join(os.homedir(),'.karlsen-desktop','build');
         //this.FOLDER = path.join(__dirname,this.args['folder'] || '.build');
         this.CACHE = path.join(this.FOLDER,'cache');
         this.TOOLS = path.join(this.FOLDER,'tools');
         this.BUILD = path.join(this.FOLDER,'build');
-        this.BIN = path.join(os.homedir(),'.kdx','bin',this.PLATFORM_ARCH);
+        this.BIN = path.join(os.homedir(),'.karlsen-desktop','bin',this.PLATFORM_ARCH);
         [this.CACHE,this.TOOLS,this.BUILD,this.BIN].forEach(f=>mkdirp.sync(f));
 
         if(this.PLATFORM == 'windows')
@@ -39,7 +39,7 @@ class Build {
 
     help() {
         const text = 
-`KDX builder ${pkg.version}
+`Karlsen Desktop builder ${pkg.version}
 Usage: build <flags>
 Where <flags> are:
     go  : go version in 'go1.14.2' format:  --go=go1.14.2
@@ -54,7 +54,7 @@ Where <flags> are:
             if(this.args.help)
                 return this.help();
 
-            this.log(`KDX builder ${pkg.version}`);
+            this.log(`Karlsen Desktop builder ${pkg.version}`);
             await this.preflight();
             await this.build();
 
@@ -193,42 +193,39 @@ Where <flags> are:
             this.log('Syncing repos...');
 
             this.TOOLS = path.join(this.FOLDER,'tools');
-            // this has migrated to ~/.kdx/bin 
+            // this has migrated to ~/.karlsen-desktop/bin 
             // this.BIN = path.join(__dirname,`../bin/${this.PLATFORM_ARCH}/`);
             //
             this.BUILD = path.join(this.FOLDER,'build');
             this.GOPATH = path.join(this.BUILD,'go');
             this.GOSRC = path.join(this.GOPATH,'src');
             mkdirp.sync(path.join(this.GOSRC,'github.com'));
-            const dest = path.join(this.GOSRC,'github.com/kaspanet/');
+            const dest = path.join(this.GOSRC,'github.com/karlsen-network/');
             if(this.args.reset && fs.existsSync(dest))
                 fse.emptyDirSync(dest);
         
             const branch = this.args['branch'] || 'master';
         
             const repos = { };
-            repos.kaspa = ['kaspad','kasparov'];
+            repos.karlsen = ['karlsend'];
         
-            for(const repo of repos.kaspa) {
-                this.log(`git clone git@github.com:kaspanet/${repo}`);
-                await this.clone(`git@github.com:kaspanet/${repo}`, dest, {branch});
+            for(const repo of repos.karlsen) {
+                this.log(`git clone git@github.com:karlsen-network/${repo}`);
+                await this.clone(`git@github.com:karlsen-network/${repo}`, dest, {branch});
             }
             
             if(this.args['with-extras']) {
                 repos.extras = ['miningsimulator', 'txgen'];
                 for(const repo of repos.extras) {
-                    this.log(`git clone git@github.com:kaspanet/${repo}`);
-                    await this.clone(`git@github.com:kaspanet/${repo}`, dest);
+                    this.log(`git clone git@github.com:karlsen-network/${repo}`);
+                    await this.clone(`git@github.com:karlsen-network/${repo}`, dest);
                 }
             }
         
             // ---
             let targets = [
-                'kaspad',
-                'kasparov/kasparovd',
-                'kasparov/kasparovsyncd',
-                'kasparov/examples/wallet',
-                ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`)
+                'karlsend',
+                ...fs.readdirSync(path.join(dest,'karlsend/cmd')).map(f => `karlsend/cmd/${f}`)
             ];
         
             if(this.args['with-extras']) {
@@ -263,7 +260,7 @@ Where <flags> are:
                 fse.copy(path.join(folder,file),path.join(this.BIN,dest));
             })
         
-            fse.copy(path.join(dest,'kasparov','database','migrations'),path.join(this.BIN,'database','migrations'));
+            fse.copy(path.join(dest,'database','migrations'),path.join(this.BIN,'database','migrations'));
 
         } catch(ex) {
             throw ex;
@@ -317,7 +314,7 @@ Where <flags> are:
             console.log("");
 
             progress(
-                request({ url, headers: { 'User-Agent': 'KDX' } }), 
+                request({ url, headers: { 'User-Agent': 'Karlsen Desktop' } }), 
                 { throttle : 250, delay : 1000 }
             )
             .on('progress', function (state) {
@@ -457,8 +454,8 @@ function showDepsError() {
 
 Hm.. it looks like you don't have dependencies installed.
 
-Before building Kaspa, you need to do some setup:
-From the kdx folder:
+Before building Karlsen, you need to do some setup:
+From the karlsen-desktop folder:
 
     
     

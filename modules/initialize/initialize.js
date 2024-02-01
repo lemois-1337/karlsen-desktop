@@ -55,7 +55,7 @@ class Initializer{
 	}
 
 	initRPC(){
-		let rpc = new FlowRPC({bcastChannel:'kdx'});
+		let rpc = new FlowRPC({bcastChannel:'karlsen-desktop'});
 
 		this.rpc = rpc;
 
@@ -71,7 +71,7 @@ class Initializer{
 
 //		this.tpl_network = 'testnet';
 		this.tpl_network = 'mainnet';
-		this.tpl_template = 'kaspad-node-only';
+		this.tpl_template = 'karlsend-node-only';
 
 		try {
 			this.templates = JSON.parse(fs.readFileSync(path.join(this.appFolder,'.templates'))+'');

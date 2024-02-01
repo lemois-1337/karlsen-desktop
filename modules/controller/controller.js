@@ -10,11 +10,10 @@ const { BroadcastChannelRPC : FlowRPC } = require("@aspectron/flow-rpc");
 const utils = require('@aspectron/flow-utils');
 const util = require('../../lib/utils.js');
 const Manager = require("../../lib/manager.js");
-const Console = require("../../lib/console.js")
 const StatsD = require('node-statsd');
 const semver = require('semver');
 
-const {RPC} = require('@kaspa/grpc-node');
+const {RPC} = require('@karlsen/grpc-node');
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
 import {
@@ -28,35 +27,37 @@ window.getLocalSetting = getLocalSetting;
 window.setLocalSetting = setLocalSetting;
 //TODO
 window.PWA_MODULES={};
-window.PWA_MODULES["@kaspa/wallet-pwa"] = "N/A";
+window.PWA_MODULES["@karlsen/wallet-pwa"] = "N/A";
 window.PWA_MODULES["@aspectron/flow-ux"] = "N/A";
-window.PWA_MODULES["@kaspa/ux"] = "N/A";
-window.PWA_MODULES["@kaspa/grpc-web"] = "N/A";
-window.PWA_MODULES["@kaspa/wallet"] = "N/A";
-window.PWA_MODULES["@kaspa/grpc"] = "N/A";
-window.PWA_MODULES["@kaspa/core-lib"] = "N/A";
+window.PWA_MODULES["@karlsen/ux"] = "N/A";
+window.PWA_MODULES["@karlsen/grpc-web"] = "N/A";
+window.PWA_MODULES["@karlsen/wallet"] = "N/A";
+window.PWA_MODULES["@karlsen/grpc"] = "N/A";
+window.PWA_MODULES["@karlsen/core-lib"] = "N/A";
 
-class KDXApp extends FlowApp{
+class KarlsenDesktopApp extends FlowApp{
 	render(){
-		let walletMeta = {"generator":"KDX"}
+		let walletMeta = {"generator":"Karlsen Desktop"}
 		let list = [
+			['Karlsen','MIT','Copyright (c) 2023 Karlsen Developers'],
 			['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
 //			['PostgreSQL','PostgreSQL','Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br/>Portions Copyright © 1994, The Regents of the University of California'],
 //			['Mosquitto','EDL-V10 EPL-V10','Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors'],
 			['Flow-UX Framework','MIT', 'Copyright (c) ASPECTRON Inc.'],
 			['NWJS','MIT','Copyright (c) 2015 四月橘林'],
 			['Chromium','BSD', 'Copyright (c) The Chromium Authors']
-			// ['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
-			// ['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
+		];
+		let copyright = [
+			['Karlsen Desktop','Copyright (c) 2024 Karlsen Developers', 'All Rights Reserved'],
+			['KDX','Copyright (c) 2020 Kaspa Developers', 'All Rights Reserved']
 		];
 		let donationAddresses = [
-			["Devfund donations:", "kaspa:precqv0krj3r6uyyfa36ga7s0u9jct0v4wg8ctsfde2gkrsgwgw8jgxfzfc98"],
-			["Mining address:", "kaspa:pzhh76qc82wzduvsrd9xh4zde9qhp0xc8rl7qu2mvl2e42uvdqt75zrcgpm00"],
-			//["KDX/WebWallet donations:", "kaspa:qrncjga8hej9q59q85ge5js6m4y97el6ahp3m87hyzqdtaq6pf0v7xek7x900"],
+			["Karlsen Devfund donations:", "karlsen:qzrq7v5jhsc5znvtfdg6vxg7dz5x8dqe4wrh90jkdnwehp6vr8uj7csdss2l7"],
+			["Karlsen Desktop donations:", "karlsen:qqe3p64wpjf5y27kxppxrgks298ge6lhu6ws7ndx4tswzj7c84qkjlrspcuxw"],
 		]
 		return html`
 		<flow-caption-bar
-			logo="/resources/images/kaspa-logo-light-bg.png">KDX</flow-caption-bar>
+			logo="/resources/images/karlsen-logo-light-bg.png">Karlsen Desktop</flow-caption-bar>
 		<tab-content for="home">
 			<flow-form-control id="applications" icon="fal:fire" no-help style='display:none;'>
 				<flow-i18n caption>Applications</flow-i18n>
@@ -67,20 +68,15 @@ class KDXApp extends FlowApp{
 				<div id='process-info-table' class="task-info-container">
 				</div>
 			</flow-form-control>
-			<div id='kaspa-resources'>
+			<div id='karlsen-resources'>
 
 				<flow-expandable>
-					<div slot="title" is="i18n-div" caption>KASPA RESOURCES</div>
+					<div slot="title" is="i18n-div" caption>KARLSEN RESOURCES</div>
 					<ul style="font-size: 12px;">
-						<li>
-							<flow-shell-link href="https://docs.kas.pa/kaspa/about-kaspa/get-started">
-								<flow-i18n>Documentation</flow-i18n>
-							</flow-shell-link>
-						</li>
 						<li><flow-shell-link
-							href="https://github.com/kaspanet/"><flow-i18n>GitHub</flow-i18n></flow-shell-link></li>
+							href="https://github.com/karlsen-network/"><flow-i18n>GitHub</flow-i18n></flow-shell-link></li>
 						<li><flow-shell-link
-							href="https://discord.gg/vMT39xB"><flow-i18n>Discord Chat</flow-i18n></flow-shell-link></li>
+							href="https://discord.gg/ZPZRvgMJDT"><flow-i18n>Discord Chat</flow-i18n></flow-shell-link></li>
 						<li><flow-link
 							id="release-notes-link"><flow-i18n>Release Notes</flow-i18n></flow-link></li>
 					</ul>
@@ -89,7 +85,7 @@ class KDXApp extends FlowApp{
 			<flow-expandable class="donation-addresses" no-info _icon="fal:donate">
 				<div slot="title" is="i18n-div" caption>DONATIONS</div>
 				<p is="i18n-p">
-					if you wish to further the development of the kaspa ecosystem, we accept kaspa donations at the following addresses:
+					If you wish to further the development of the karlsen ecosystem, we accept karlsen donations at the following addresses:
 				</p>
 				${
 					donationAddresses.map((t) => {
@@ -104,10 +100,6 @@ class KDXApp extends FlowApp{
 					})
 				}
 			</flow-expandable>
-			<flow-form-control icon="fal:copyright">
-				<flow-i18n>KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br/>
-				All Rights Reserved.</flow-i18n><br/>
-			</flow-form-control>
 			<div id='license-info'>
 				<flow-expandable no-info class="license-info" >
 					<div slot="title" is="i18n-div" caption>LICENSE INFORMATION</div>
@@ -122,6 +114,26 @@ class KDXApp extends FlowApp{
 									<license><flow-i18n>${license}</flow-i18n></license>
 									<br/>
 									<copyright><flow-i18n>${copy}</flow-i18n></copyright>
+								</project>`;
+							})}
+						</div>
+					</div>
+				</flow-expandable>
+			</div>
+			<div id='copyright-info'>
+				<flow-expandable no-info class="copyright-info" >
+					<div slot="title" is="i18n-div" caption>COPYRIGHT INFORMATION</div>
+					<div style="font-weight:bold;font-size: 0.85rem;">
+						<div id="copyright-text">
+							${copyright.map((t) => {
+								let [name, copy, right] = t;
+								return html`
+								<project>
+									<name><flow-i18n>${name}</flow-i18n></name>
+									<br/>
+									<copyright><flow-i18n>${copy}</flow-i18n></copyright>
+									<br/>
+									<copyright><flow-i18n>${right}</flow-i18n></copyright>
 								</project>`;
 							})}
 						</div>
@@ -144,9 +156,9 @@ class KDXApp extends FlowApp{
 				
 				<h4 slot="info" class="title"><flow-i18n>Data Folder</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					Data Folder location is used for storage by all KDX modules. 
-					In default configuration this includes Kaspad blockchain data and Kasparov API database.
-					This location also contains process log files.
+					Data Folder location is used for storage by all Karlsen Desktop
+					modules. In default configuration this includes Karlsend blockchain
+					data. This location also contains process log files.
 				</p>
 			</flow-form-control>
 			<flow-form-control icon="fal:palette">
@@ -163,7 +175,7 @@ class KDXApp extends FlowApp{
 				</flow-checkbox>
 				<h4 slot="info" class="title"><flow-i18n>Advanced mode</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					Advanced mode allows you to manually configure, interact with and monitor KDX services.
+					Advanced mode allows you to manually configure, interact with and monitor Karlsen Desktop services.
 				</p>
 			</flow-form-control>
 			<flow-form-control icon="fal:cog" class="advanced-tool">
@@ -172,7 +184,7 @@ class KDXApp extends FlowApp{
 					slot="input"><flow-i18n>Run in Background</flow-i18n></flow-checkbox>
 				<h4 slot="info" class="title"><flow-i18n>Background Execution</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					When enabled, KDX runs itself and it's services hidden in the background
+					When enabled, Karlsen Desktop runs itself and it's services hidden in the background
 					and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
 				</p>
 			</flow-form-control>
@@ -183,27 +195,7 @@ class KDXApp extends FlowApp{
 				<flow-checkbox id="settings-compound-with-latest-change-addr" class="block advanced-tool"
 					slot="input"><flow-i18n>Use latest Change address</flow-i18n></flow-checkbox>
 				<h4 slot="info" class="title"><flow-i18n>Compounding UTXOs</flow-i18n></h4>
-				<p slot="info" is="i18n-p">When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address. </p>
-			</flow-form-control>
-			<flow-form-control icon="fal:cube" class="advanced-tool"
-				id="block-generation">
-				<flow-i18n slot="title">Block Generation</flow-i18n>
-				<flow-checkbox id="settings-enable-mining" class="block"
-					><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
-				<flow-input id="mining-address-input" class="block"
-					label="Mining address" apply-btn
-					btnText="Update">
-				</flow-input>
-				<!--div inline-info>
-					Please use the Console tab <i>wallet</i> command to create an address.<br/>
-					Once created, please enter the address in the input above.
-				</div-->
-				<flow-checkbox id="settings-use-wallet-address-for-mining"
-					class="block"><flow-i18n>Use Wallet Address for Mining</flow-i18n></flow-checkbox>
-				<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
-				<p slot="info" is="i18n-p">
-					The Enable Mining option starts / stops all configured Kaspaminer instances.
-				</p>
+				<p slot="info" is="i18n-p">When Autocompound enabled, Karlsen Desktop compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address. </p>
 			</flow-form-control>
 			<!-- flow-form-control icon="fal:drafting-compass" class="advanced-tool">
 				<flow-i18n caption>Metrics</flow-i18n>
@@ -224,7 +216,7 @@ class KDXApp extends FlowApp{
 
 				<h4 slot="info" class="title"><flow-i18n>Metrics</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					You can stream KDX metrics to your own StatsD-compatible server.
+					You can stream Karlsen Desktop metrics to your own StatsD-compatible server.
 				</p>
 			</flow-form-control-->
 
@@ -238,8 +230,8 @@ class KDXApp extends FlowApp{
 				</div>
 				<h4 slot="info" class="title"><flow-i18n>Service Configuration</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					Configuration editor allows you to customize KDX environment.
-					KDX configuration is represented in JSON
+					Configuration editor allows you to customize Karlsen Desktop environment.
+					Karlsen Desktop configuration is represented in JSON
 					by a list of application/service configuration objects.
 					Each service configuration object is used 
 					to start the corresponding service.
@@ -269,7 +261,7 @@ class KDXApp extends FlowApp{
 				</div>
 				<h4 slot="info" class="title"><flow-i18n>Configuration Templates</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					Configuration templates allow you to load pre-made KDX configurations.
+					Configuration templates allow you to load pre-made Karlsen Desktop configurations.
 				</p>
 			</flow-form-control>
 			<flow-form-control icon="fal:database">
@@ -277,7 +269,7 @@ class KDXApp extends FlowApp{
 				<flow-btn slot="input" id="reset-data-folder-btn" class="primary" i18n>Delete data directory and resync</flow-btn>
 				<h4 slot="info" class="title"><flow-i18n>Reset Data Folder</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					It will delete datadir (Data Folder) and restart kaspad node to re-sync
+					It will delete datadir (Data Folder) and restart karlsend node to re-sync
 				</p>
 			</flow-form-control>
 			<flow-form-control icon="fal:database">
@@ -285,17 +277,14 @@ class KDXApp extends FlowApp{
 				<flow-btn slot="input" id="reindex-utxo-btn" class="primary" i18n>Reindex UTXO</flow-btn>
 				<h4 slot="info" class="title"><flow-i18n>Reindex UTXO</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)
+					Start the karlsend node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)
 				</p>
 			</flow-form-control>
 			<div style="height:192px;"></div>
 		</tab-content>
 		<tab-content for="wallet" class="wallet" data-active-display="flex">
-			<kaspa-wallet .walletMeta='${walletMeta}' hideNetwork hidefaucet 
-				_hideQRScanner hideopenwalletlogo></kaspa-wallet>
-		</tab-content>
-		<tab-content for="console" data-active-display="flex" class="vertical-flex term">
-			<flow-terminal id="kdx-console" class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
+			<karlsen-wallet .walletMeta='${walletMeta}' hideNetwork hidefaucet 
+				_hideQRScanner hideopenwalletlogo></karlsen-wallet>
 		</tab-content>
 		<app-startup-dialog id="release-notes-dialog"></app-startup-dialog>`
 	}
@@ -358,7 +347,6 @@ class KDXApp extends FlowApp{
 		await this.initWallet();
 		await this.initManager();
 		await this.initVersions();
-		await this.initConsole();
 		
 		
 		
@@ -378,7 +366,7 @@ class KDXApp extends FlowApp{
 		document.body.classList.toggle("disable", disabled);
 	}
 	initRPC(){
-		let rpc = new FlowRPC({bcastChannel:'kdx'});
+		let rpc = new FlowRPC({bcastChannel:'karlsen-desktop'});
 		this.rpc = rpc;
 
 		rpc.on("disable-ui", (args)=>{
@@ -440,7 +428,6 @@ class KDXApp extends FlowApp{
 	async initManager(){
 		let {dataFolder, appFolder, config} = this.initData;
 		let manager = global.manager || new Manager(this, dataFolder, appFolder);
-		manager.enableMining = config.enableMining;
 		if(global.manager){
 			manager.controller = this;
 			manager.dataFolder = dataFolder;
@@ -463,7 +450,7 @@ class KDXApp extends FlowApp{
 			this.initTaskTab(daemon.task);
 			this.refreshApps();
 			const {wallet} = this;
-			if(!wallet || daemon.task.type!='kaspad' || !this.rpcDisconnect){
+			if(!wallet || daemon.task.type!='karlsend' || !this.rpcDisconnect){
 				return
 			}
 
@@ -478,7 +465,7 @@ class KDXApp extends FlowApp{
 		manager.on("before-interrupt", ({daemon, interrupt})=>{
 			console.log("before-interrupt", daemon.task.type, daemon.task)
 			const {wallet} = this;
-			if(!wallet || daemon.task.type!='kaspad')
+			if(!wallet || daemon.task.type!='karlsend')
 				return
 			wallet.disconnectRPC();
 			this.rpcDisconnect = true;
@@ -511,7 +498,7 @@ class KDXApp extends FlowApp{
 		/*
 		manager.on('sync-status', (data) => {
 			//console.log("sync-status:data", data);
-			let wallet = this.wallet || this.qS('kaspa-wallet');
+			let wallet = this.wallet || this.qS('karlsen-wallet');
 			const { networkName, sync, headerCount, blockCount, pastMedianTime, pastMedianTimeDiff } = data;
 			wallet.sync = sync;
 			wallet.networkName = networkName;
@@ -535,8 +522,6 @@ class KDXApp extends FlowApp{
 			this.initDaemons();
 		}
 
-		manager.enableMining = this.enableMining;
-
 		global.manager = manager;
 	}
 	async initVersions() {
@@ -554,17 +539,10 @@ class KDXApp extends FlowApp{
 		});
 	}
 	async initWallet() {
-		let wallet = this.qS('kaspa-wallet');
+		let wallet = this.qS('karlsen-wallet');
 		this.wallet = wallet;
 		this.applyCompoundConfig();
-		wallet.addEventListener("new-wallet", ()=>{
-			if(this.useWalletForMining){
-				//console.log("restartMining:::")
-				this.miningAddress = "";
-				this.manager?.restartMining();
-			}
-		})
-		let settings = await this.get_default_local_kaspad_settings();
+		let settings = await this.get_default_local_karlsend_settings();
 		let verbose = localStorage.rpcverbose == 1;
 		this.wallet.setRPCBuilder(()=>{
 			const { network, port } = settings;
@@ -576,36 +554,30 @@ class KDXApp extends FlowApp{
 		
 		return Promise.resolve();
 	}
-	async get_default_local_kaspad_settings() {
+	async get_default_local_karlsend_settings() {
 		
 		let {config:daemons} = await this.get("get-modules-config");
 		console.log("############### DAEMONS", daemons);
-		let kaspad = Object.entries(daemons).map(([k,v]) => { 
+		let karlsend = Object.entries(daemons).map(([k,v]) => { 
 			const { args } = v;
 			const [type, ident] = k.split(':');
 			return { type, ident, args};
-		}).filter(o=>o.type=='kaspad').shift();
+		}).filter(o=>o.type=='karlsend').shift();
 
-		if(!kaspad)
-			return null;//{network:"kaspa", port:16110};//{network:"kaspatest", port:16110};
+		if(!karlsend)
+			return null;//{network:"karlsen", port:42110};//{network:"karlsentest", port:42110};
 
-		const { args } = kaspad;
+		const { args } = karlsend;
 		let networkType = ['testnet','devnet','simnet'].filter(v=>args[v] !== undefined).shift() || 'mainnet';
 		let network = {
-			mainnet : 'kaspa',
-			testnet : 'kaspatest',
-			devnet : 'kaspadev',
-			simnet : 'kaspasim'
+			mainnet : 'karlsen',
+			testnet : 'karlsentest',
+			devnet : 'karlsendev',
+			simnet : 'karlsensim'
 		}[networkType];
 		let { rpclisten } = args;
 		let port = parseInt(rpclisten.split(':').pop());
 		return { network, port };
-	}
-	async initConsole() {
-		let terminal = this.qS('#kdx-console');
-		this.console = new Console(this, terminal);
-
-		return Promise.resolve();
 	}
 	async initTheme(){
 		let {theme, invertTerminals} = await this.get("get-app-config");
@@ -623,29 +595,6 @@ class KDXApp extends FlowApp{
 		this.post("set-run-in-bg", {runInBG});
 		if(this.runInBGInput)
 			this.runInBGInput.value = this.runInBG
-	}
-	setEnableMining(enableMining){
-		this.enableMining = !!enableMining;
-		this.post("set-enable-mining", {enableMining});
-		this.manager.setEnableMining(this.enableMining);
-	}
-	async setUseWalletForMining(useWalletForMining){
-		console.log("setUseWalletForMining", useWalletForMining)
-		this.useWalletForMining = !!useWalletForMining;
-		if(this.miningAddressInput)
-			this.miningAddressInput.disabled = this.useWalletForMining;
-		await this.get("set-use-wallet-for-mining", {useWalletForMining});
-		this.miningAddress = false;
-		this.manager.restartMining();
-	}
-	async setMiningAddress(address, dontRestartMinner=false){
-		let {config} = await this.get("set-mining-address", {address});
-		this.setModuleConfigEditorValue(config);
-		this.miningAddress = address;
-		if(this.miningAddressInput)
-			this.miningAddressInput.value = address;
-		if(!dontRestartMinner)
-			this.manager.restartMining();
 	}
 	setStatsdAddress(statsdAddress){
 		// console.log("setStatsdAddress", address)
@@ -705,7 +654,7 @@ class KDXApp extends FlowApp{
 			this.themeInputEl.value = theme=="dark";
 		}
 		if(this.caption)
-			this.caption.logo = `/resources/images/kaspa-logo-${theme}-bg.png`
+			this.caption.logo = `/resources/images/karlsen-logo-${theme}-bg.png`
 		this.post("set-app-theme", {theme});
 		document.body.classList.forEach(c=>{
 			if(c.indexOf('flow-theme') === 0 && c!='flow-theme'+theme){
@@ -723,19 +672,19 @@ class KDXApp extends FlowApp{
 		}
 
 		document.body.dispatchEvent(new CustomEvent("flow-theme-changed"));
-		this.querySelector("kaspa-wallet")?.requestUpdate("theme", null)
+		this.querySelector("karlsen-wallet")?.requestUpdate("theme", null)
 	}
 	initCaption(){
 		let caption = this.qS('flow-caption-bar');
 		console.log("caption", caption)
 		this.caption = caption;
 		this.caption.close = this.closeWin;
-		this.caption.logo = `/resources/images/kaspa-logo-${this.theme||"light"}-bg.png`;
+		this.caption.logo = `/resources/images/karlsen-logo-${this.theme||"light"}-bg.png`;
 
 		caption.version = pkg.version;
 
 		caption.tabs = [{
-			title : "KASPA",
+			title : "KARLSEN",
 			id : "home",
 			cls: "home"
 		},{
@@ -745,11 +694,6 @@ class KDXApp extends FlowApp{
 		},{
 			title : "SETTINGS",
 			id : "settings"
-		},{
-			title : "CONSOLE",
-			id : "console",
-			disable:true,
-		//	section: 'advanced'
 		}];
 
 		caption["active"] = "wallet";
@@ -765,7 +709,7 @@ class KDXApp extends FlowApp{
 		this.tray = tray;
 
 		if(os.platform != 'darwin')
-			tray.title = 'KDX';
+			tray.title = 'Karlsen Desktop';
 
 		let menu = new nw.Menu();
 		this.showMenu = new nw.MenuItem({ 
@@ -801,16 +745,10 @@ class KDXApp extends FlowApp{
 		}).join('');
 		tplEl.innerHTML = html;
 
-		const blockgenEl = qS("#block-generation");
-
 		if(!this.tpl_template) {
 			let {config} = this.initData;
 			this.tpl_template = config.ident;
 			this.tpl_network = config.network;
-
-			let miner = Object.keys(config.modules).filter(v=>/^(kaspa|gpu)miner/.test(v));
-			if(!miner.length)
-				$(blockgenEl).addClass('no-mining');
 		}
 
 		tplEl.setAttribute('selected',this.tpl_template);
@@ -840,12 +778,6 @@ class KDXApp extends FlowApp{
 			//this.saveModulesConfig(config);
 			config = await this.setConfigTemplate(config, network);
 			this.configEditor.session.setValue(JSON.stringify(config.modules, null, "\t"));
-
-			let miner = Object.keys(config.modules).filter(v=>/^(kaspa|gpu)miner/.test(v));
-			if(miner.length)
-				$(blockgenEl).removeClass('no-mining');
-			else
-				$(blockgenEl).addClass('no-mining');
 		});
 	}
 
@@ -866,9 +798,6 @@ class KDXApp extends FlowApp{
 		let invertTermInput = qS("#settings-invert-terminal");
 		let runInBGInput = qS("#settings-run-in-bg");
 		this.runInBGInput = runInBGInput;
-		let enableMiningInput = qS("#settings-enable-mining");
-		let useWalletForMiningInput = qS("#settings-use-wallet-address-for-mining");
-		let miningAddressInput = qS("#mining-address-input");
 		let scriptHolder = qS('#settings-script');
 		let advancedInput = qS('#settings-advanced');
 		let statsdAddressInput = qS('#settings-statsd-address');
@@ -876,7 +805,6 @@ class KDXApp extends FlowApp{
 		let enableMetricsInput = qS('#settings-enable-metrics');
 		let compoundAutoInput = qS("#settings-auto-compound");
 		let compoundUseLatestAddressInput = qS("#settings-compound-with-latest-change-addr");
-		this.miningAddressInput = miningAddressInput;
 		advancedInput.addEventListener('changed', (e)=>{
 			let advanced = this.advanced = e.detail.checked;
 			let index = this.caption.tabs.forEach((t, index)=>{
@@ -958,17 +886,6 @@ class KDXApp extends FlowApp{
 		runInBGInput.addEventListener('changed', (e)=>{
 			this.setRunInBG(e.detail.checked);
 		});
-		enableMiningInput?.addEventListener('changed', (e)=>{
-			this.setEnableMining(e.detail.checked);
-		});
-		useWalletForMiningInput?.addEventListener('changed', (e)=>{
-			this.setUseWalletForMining(e.detail.checked);
-		});
-		miningAddressInput?.addEventListener('btn-click', async (e)=>{
-			let address = miningAddressInput.value;
-			if(address)
-				this.setMiningAddress(address)
-		})
 		statsdAddressInput?.addEventListener('changed', (e)=>{
 			this.setStatsdAddress(e.detail.value);
 		});
@@ -1002,25 +919,13 @@ class KDXApp extends FlowApp{
 		runInBGInput.checked = !!config.runInBG;
 		if(enableMetricsInput)
 			enableMetricsInput.checked = !!config.enableMetrics;
-		if(enableMiningInput)
-			enableMiningInput.checked = !!config.enableMining;
-		this.useWalletForMining = !!config.useWalletForMining
-		if(useWalletForMiningInput)
-			useWalletForMiningInput.checked = this.useWalletForMining;
-		console.log("config.useWalletForMining", this.useWalletForMining)
-		if(miningAddressInput){
-			miningAddressInput.disabled = this.useWalletForMining;
-			miningAddressInput.value = this.getMiningAddressFromConfig(config)
-		}
 		if(statsdAddressInput)
 			this.statsdAddress = statsdAddressInput.value = config.statsdAddress || "";
 		if(statsdPrefixInput)
-			this.statsdPrefix = statsdPrefixInput.value = config.statsdPrefix || "kdx.$HOSTNAME";
+			this.statsdPrefix = statsdPrefixInput.value = config.statsdPrefix || "karlsen-desktop.$HOSTNAME";
 		this.runInBG = runInBGInput.checked;
-		this.enableMining = enableMiningInput?.checked||!!config.enableMining;
 		this.buildType = config.build || 'generic';
 	
-		//this.manager.setEnableMining(this.enableMining);
 		flow.samplers.registerSink(this.sampler_sink.bind(this));
 		this.initStatsdServer(this.statsdAddress,this.statsdPrefix);
 
@@ -1089,57 +994,17 @@ class KDXApp extends FlowApp{
 		}
 		this.restartDaemons(false, beforeStartCB);
 	}
-	isMinerWaitingForWalletLogin(){
-		if(this.miningAddress){
-			return false
-		}
-
-		return (this.useWalletForMining && this.wallet);
-	}
-	async getMiningAddress(){
-		if(this.miningAddress){
-			console.log("getMiningAddress: returning", this.miningAddress)
-			return this.miningAddress;
-		}
-		console.log("getMiningAddress: useWalletForMining", this.useWalletForMining)
-		if(this.useWalletForMining && this.wallet){
-			let address = await this.wallet.getMiningAddress();
-			this.miningAddress = address;
-			console.log("getMiningAddress: useWalletForMining, address", this.useWalletForMining, address)
-			if(address)
-				this.setMiningAddress(address, true)
-			return address;
-		}
-		let {config} = await this.get("get-modules-config")
-		let address = this.getMiningAddressFromConfig({modules:config});
-		this.miningAddress = address;
-		console.log("getMiningAddress:miningAddress:", this.miningAddress)
-		return address;
-	}
-	getMiningAddressFromConfig(config){
-		let {modules={}} = config;
-		let address = "";
-		Object.keys(modules).find(key=>{
-			if(key.includes("gpuminer:")){
-				modules[key].args = modules[key].args||{};
-				address = modules[key].args["mining-address"];
-				return !!address
-			}
-		})
-		return address || "";
-	}
 	initReleaseNotes(){
 		let dialog = this.qS("#release-notes-dialog");
 		//let readmeContent = fs.readFileSync(path.join(this.manager.appFolder, 'README.md'))+"";
 		let changelogContent = fs.readFileSync(path.join(this.manager.appFolder, 'CHANGELOG.md'))+"";
 		dialog.content = 
-`#	Welcome to KDX ${pkg.version}!
+`#	Welcome to Karlsen Desktop ${pkg.version}!
 
 Useful resources:
-- Kaspa Documentation: https://github.com/kaspanet/docs 
-- Kaspa Discord: https://discord.gg/vMT39xB
-- Kaspa GitHub: https://github.com/kaspanet/
-- KDX GitHub: https://github.com/aspectron/kdx
+- Karlsen Discord: https://discord.gg/ZPZRvgMJDT
+- Karlsen GitHub: https://github.com/karlsen-network/
+- Karlsen Desktop GitHub: https://github.com/karlsen-network/karlsen-desktop
 
 ${changelogContent}`;
 		$("#release-notes-link").on("click", ()=>{
@@ -1281,7 +1146,7 @@ ${changelogContent}`;
 		this.showApps(daemons);
 		
 		console.log("initDaemons", daemons);
-		let {params} = this.getModuleArgs('kaspad:', daemons);
+		let {params} = this.getModuleArgs('karlsend:', daemons);
 		let skipUTXOIndexCheck = !!(params?.["skip-utxoindex"])
 		if(skipUTXOIndexCheck)
 			this.wallet.setAttribute('skiputxoindexcheck', true)
@@ -1404,7 +1269,7 @@ ${changelogContent}`;
 			console.log("%c######## closeWin called ######", 'color:red')
 			if(isExit !== true && !this.runInBG){
 				let {btn} = await FlowDialog.show({
-					title:i18n.t("EXIT KDX"),
+					title:i18n.t("EXIT Karlsen Desktop"),
 					body:i18n.t("Are you sure?"),
 					btns:[{
 						text:i18n.t('Cancel'),
@@ -1547,7 +1412,7 @@ ${changelogContent}`;
 				name:pkg.name,
 				description:pkg.description,
 				folder:app.folder
-			}, pkg.kdx||{})
+			}, pkg.karlsen-desktop||{})
 
 			return this.resolveStrings(config);
 		})
@@ -1573,7 +1438,7 @@ ${changelogContent}`;
 				return;
 
 			let location = app.location;
-			if(!location && app.engines?.kdx) {
+			if(!location && app.engines?.karlsen-desktop) {
 				location = `apps/${app.folder}/${app.main}`;
 			}
 
@@ -1593,7 +1458,7 @@ ${changelogContent}`;
 					title="${app.name}"
 					width="${width}"
 					height="${height}"
-					icon="resources/images/kdx-icon.png"
+					icon="resources/images/karlsen-desktop-icon.png"
 					resizable
 					frame
 					>${`${app.name} - ${app.description}`}</flow-window-link><br/>
@@ -1666,7 +1531,7 @@ ${changelogContent}`;
 		this.updateChecked = true;
 
 		//const url = 'http://localhost:9090/version.json';
-		const url = 'https://kdx.app/version.json';
+		const url = 'https://karlsencoin.com/karlsen-desktop/version.json';
 		let resp = await fetch(url).catch((error) => {
 			alert(error.toString());
 		});
@@ -1675,7 +1540,7 @@ ${changelogContent}`;
 		});
 
 		if(!data) {
-			console.log("missing version data in https://kdx.app/version.json");
+			console.log("missing version data in https://karlsencoin.com/karlsen-desktop/version.json");
 			return false;
 		}
 
@@ -1693,7 +1558,7 @@ ${changelogContent}`;
 			this.setUiLoading(false);
 
 			let {btn} = await FlowDialog.show({
-				title:i18n.t("KDX Update"),
+				title:i18n.t("Karlsen Desktop Update"),
 				body:i18n.t(`Version ${version} is available, would you like to update?`),
 				btns:[{
 					text:i18n.t('No'),
@@ -1706,13 +1571,13 @@ ${changelogContent}`;
 			});
 
 			if(btn == 'ok') {
-				require('nw.gui').Shell.openExternal('https://kdx.app');
+				require('nw.gui').Shell.openExternal('https://karlsencoin.com');
 
 				let confirm = await FlowDialog.show({
-					title:i18n.t("KDX Update"),
-					body:html`Please download the latest version from  <flow-link href="https://kdx.app" target="_blank">https://kdx.app</flow-link>
+					title:i18n.t("Karlsen Desktop Update"),
+					body:html`Please download the latest version from  <flow-link href="https://karlsencoin.com" target="_blank">https://karlsencoin.com</flow-link>
 					<br/>&nbsp;<br/>
-					KDX will now shutdown`,
+					Karlsen Desktop will now shutdown`,
 					btns:[{
 						text:i18n.t('Cancel'),
 						value:'cancel'
@@ -1734,7 +1599,7 @@ ${changelogContent}`;
 	}
 }
 
-KDXApp.define("kdx-app")
+KarlsenDesktopApp.define("karlsen-desktop-app")
 
 nw.Window.get().on('new-win-policy', function(frame, url, policy) {
 	// do not open the window

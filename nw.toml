@@ -1,16 +1,16 @@
 [application]
-name = "kdx"
-title = "KDX"
+name = "karlsen-desktop"
+title = "Karlsen Desktop"
 version = "package.json::version"
-organization = "ASPECTRON Inc"
+organization = "Karlsen Network"
 
 [description]
-short = "Desktop Node and Wallet for Kaspa"
+short = "Desktop Node and Wallet for Karlsen"
 long = """
-KDX is a desktop wallet and a p2p network node instance. This application
-allows you to participate in the Kaspa network by running a local node
-instance and offers access to a local wallet, compatible with the web
-wallet available at https://wallet.kaspanet.io
+Karlsen Desktop is a desktop wallet and a p2p network node instance. This
+application allows you to participate in the Karlsen network by running a
+local node instance and offers access to a local wallet, compatible with
+the web wallet available at https://wallet.karlsencoin.com
 """
 
 [package]
@@ -19,7 +19,6 @@ signatures = ["SHA256"]
 build = [
     { NPM = { clean = true } }
 ]
-# wasm = "root/wasm"
 resources = "resources/setup"
 output = "setup/$PLATFORM-$ARCH"
 include = [
@@ -47,39 +46,25 @@ items = [{ copy = { glob = [
     ], to = "$TARGET", hidden = true}}]
 
 [[dependency]]
-name = "kaspad"
-git = { url = "https://github.com/kaspanet/kaspad", branch = "master" }
+name = "karlsend"
+git = { url = "https://github.com/karlsen-network/karlsend", branch = "master" }
 run = [
     { cmd = "go build" },
     { cmd = "go build", cwd = "cmd/genkeypair" },
-    { cmd = "go build", cwd = "cmd/kaspactl" },
-    { cmd = "go build", cwd = "cmd/kaspawallet" },
+    { cmd = "go build", cwd = "cmd/karlsenctl" },
+    { cmd = "go build", cwd = "cmd/karlsenwallet" },
 ]
 copy = [
     { regex = [
-        "kaspad(.exe)?$",
+        "karlsend(.exe)?$",
         "genkeypair(.exe)?$",
-        "kaspactl(.exe)?$",
-        "kaspawallet(.exe)?$",
+        "karlsenctl(.exe)?$",
+        "karlsenwallet(.exe)?$",
     ], to = "bin/$PLATFORM-$ARCH", flatten = true },
-]
-
-[[dependency]]
-name = "kaspa-miner"
-platform = ["windows", "linux"]
-git = { url = "https://github.com/aspectron/kaspa-miner", branch = "main" }
-run = [{ argv = ["cargo","build","--release","-p","kaspacuda"] }]
-copy = [
-    { regex = [
-        "target/release/kaspacuda(.so|.dll)$",
-        "target/release/kaspaopencl(.so|.dll)$",
-        "target/release/kaspa-miner(.exe)?$",
-    ], to = "bin/$PLATFORM-$ARCH", flatten = true },
-    # { file = "target/release/kaspa-miner$EXE", to = "bin/$PLATFORM-$ARCH/gpuminer$EXE" },
 ]
 
 [nwjs]
-version = "0.55.0"
+version = "0.78.1"
 ffmpeg = false
 
 [macos-disk-image]
@@ -91,25 +76,23 @@ application_icon_position = [100,158]
 system_applications_folder_position = [385,158]
 
 [windows]
-uuid = "c1072045-6d98-44d8-9aa5-e9be6c79bd01"
-group = "Kaspa"
-# run_on_startup = "everyone"
+uuid = "8d51c029-f5dc-44d8-b453-f93629fee7b7"
+group = "Karlsen"
 run_after_setup = true
 
 [images]
 application="logo.png"
 macos-application="Icon1024.png"
-macos-disk-image="kdx-dmg.png"
+macos-disk-image="karlsen-desktop-dmg.png"
 innosetup-icon="logo.png"
-innosetup-wizard-small="kdx-55x58.bmp"
-innosetup-wizard-large="kdx-164x314.bmp"
+innosetup-wizard-small="karlsen-desktop-55x58.bmp"
+innosetup-wizard-large="karlsen-desktop-164x314.bmp"
 
 [languages]
-languages = ["english","french"]
+languages = ["dutch", "english", "finnish", "french", "german", "italian", "polish", "portuguese", "russian", "spanish", "turkish", "ukranian"]
 
 [firewall]
 application = { direction = "in+out" }
 rules = [
-    { name = "Kaspa Node", program = "bin/windows-x64/kaspad.exe", direction="in+out" },
-    { name = "Kaspa GPU Miner", program = "bin/windows-x64/gpuminer.exe", direction="out" }
+    { name = "Karlsen Node", program = "bin/windows-x64/karlsend.exe", direction="in+out" }
 ]

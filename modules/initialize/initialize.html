@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>KDX: Configuration</title>
+	<title>Karlsen Desktop: Configuration</title>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 	<link rel="stylesheet" type="text/css" href="/resources/extern/fonts/fontawesome/css/all.min.css" />
 	<link rel="stylesheet" type="text/css" href="/node_modules/@aspectron/flow-ux/flow-ux.css" />
-	<link rel="stylesheet" type="text/css" href="/resources/styles/kdx.css">
+	<link rel="stylesheet" type="text/css" href="/resources/styles/karlsen-desktop.css">
 	<script type="importmap">
 		{
 			"imports" : {
@@ -59,24 +59,24 @@
 	<flow-form-control icon="fal:folder">
 		<flow-i18n caption>Data Folder</flow-i18n>
 		<flow-folder-input slot="input" id="data-folder-input"
-			value="~/.kdx/data"></flow-folder-input>
+			value="~/.karlsen-desktop/data"></flow-folder-input>
 		<div slot="input" class="slot-block">
 			<flow-btn class="reset-data-dir">RESET</flow-btn>
 		</div>
 		
 		<h4 slot="info" class="title"><flow-i18n>Data Folder</flow-i18n></h4>
 			<p slot="info" is="i18n-p">
-				Data Folder location is used for storage by all KDX modules.
-				In default configuration this includes Kaspad blockchain data and Kasparov API database.
-				This location also contains process log files.
+				Data Folder location is used for storage by all Karlsen Desktop
+				modules. In default configuration this includes Karlsend blockchain
+				data. This location also contains process log files.
 			</p>
 	</flow-form-control>
 
 	<flow-form-control id="settings-templates" icon="fal:file-alt">
-		<flow-i18n caption>Kaspa Configuration</flow-i18n>
+		<flow-i18n caption>Karlsen Configuration</flow-i18n>
 		<div slot="input" style="margin-top:16px;">
 			<flow-selector style="margin-right:32px;"id="template-list" label="Select Configuration Template" 
-				selected="kaspad-node-only"
+				selected="karlsend-node-only"
 				mergeattributes="value" 
 				mergeinnerhtml class="template-list"></flow-selector>
 			<flow-selector id="network-list" label="Network" selected="mainnet" 
@@ -91,11 +91,11 @@
 			<flow-checkbox id="settings-disable-upnp" class="block">
 				<flow-i18n>Disable UPNP</flow-i18n>
 			</flow-checkbox>
-			<p>UPNP helps your node to participate in securing the Kaspa network.</p>
+			<p>UPNP helps your node to participate in securing the Karlsen network.</p>
 		</div>
-		<h4 slot="info" class="title"><flow-i18n>Kaspa Stack Configuration</flow-i18n></h4>
+		<h4 slot="info" class="title"><flow-i18n>Karlsen Stack Configuration</flow-i18n></h4>
 		<p slot="info" is="i18n-p">
-			Select Kaspa stack configuration from templates.
+			Select Karlsen stack configuration from templates.
 		</p>
 	</flow-form-control>
 

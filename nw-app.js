@@ -25,15 +25,15 @@ class NWApp extends App{
 			console.log('ControllerModule - init()'.bold);
 			nw.Window.open('modules/controller/controller.html', {
 				//new_instance: true,
-				id: 'kdx',
-				title: 'KaspaDX',
+				id: 'karlsen-desktop',
+				title: 'Karlsen Desktop',
 				width: 1027,
 				height: 768,
 				resizable: true,
 				frame: false,
 				transparent: false,
 				show: true,
-				icon: 'resources/images/kdx-icon.png'
+				icon: 'resources/images/karlsen-desktop-icon.png'
 				// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
 			}, (win) => {
 				console.log("win", win)
@@ -46,18 +46,18 @@ class NWApp extends App{
 	* initlizing data folder error handler
 	*/
 	dataDirInitError(){
-		console.error(`Please start app with --init=/path/to/data/dir or --init for default (~/.kdx/data)`.red);
+		console.error(`Please start app with --init=/path/to/data/dir or --init for default (~/.karlsen-desktop/data)`.red);
 		nw.Window.open('modules/initialize/initialize.html', {
 			//new_instance: true,
 			id: 'initialize',
-			title: 'KaspaDX',
+			title: 'Karlsen Desktop',
 			width: 1027,
 			height: 768,
 			resizable: true,
 			frame: true,
 			transparent: false,
 			show: true,
-			icon: 'resources/images/kdx-icon.png'
+			icon: 'resources/images/karlsen-desktop-icon.png'
 			// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
 		}, (win) => {
 
@@ -80,27 +80,6 @@ class NWApp extends App{
 				return
 			this.setRunInBG(runInBG);
 		});
-//		useWalletForMining
-		rpc.on("set-enable-mining", (args)=>{
-			let {enableMining} = args;
-			if(enableMining == undefined)
-				return
-			this.setEnableMining(enableMining);
-		});
-		rpc.on("set-use-wallet-for-mining", (args, callback)=>{
-			let {useWalletForMining} = args;
-			if(useWalletForMining !== undefined){
-				this.setUseWalletForMining(useWalletForMining);
-			}
-			callback()
-		});
-		rpc.on("set-mining-address", (args, callback)=>{
-			let {address} = args;
-			if(address == undefined)
-				return callback({error:"Invalid address"})
-			this.setMiningAddress(address);
-			callback(null, {config:this.getModulesConfig()})
-		})
 		rpc.on("set-enable-metrics", (args)=>{
 			let {enableMetrics} = args;
 			if(enableMetrics == undefined)

@@ -1,124 +1,29 @@
 {
-    "kaspad-node-only" : {
-        "description" : "Kaspad Node",
-        "modules":{
-            "kaspad:kd0" : {
-                "reset-peers" : false,
-                "args":{
-                    "rpclisten" : "0.0.0.0:16110",
-                    "listen": "0.0.0.0:16111",
-                    "profile": 7000
-                }
-            }
-        }
-    },
-    "cpu-miner" : {
-        "description" : "CPU Miner",
-        "modules":{
-            "kaspad:kd0" : {
-                "reset-peers" : false,
-                "args":{
-                    "rpclisten" : "0.0.0.0:16110",
-                    "listen": "0.0.0.0:16111",
-                    "profile": 7000
-                }
-            },
-            "gpuminer:km0" : {
-                "args":{
-                    "mining-address" : "",
-                    "threads": 1,
-                    "kaspad-address": "localhost",
-                    "port": "16110"
-                }
-            }
-        }
-    },
-    "gpu-miner" : {
-        "description" : "GPU Miner",
-        "modules":{
-            "kaspad:kd0" : {
-                "reset-peers" : false,
-                "args":{
-                    "rpclisten" : "0.0.0.0:16110",
-                    "listen": "0.0.0.0:16111",
-                    "profile": 7000
-                }
-            },
-            "gpuminer:km0" : {
-                "args":{
-                    "mining-address" : "",
-                    "cuda-workload": 512,
-                    "kaspad-address": "localhost",
-                    "port": "16110"
-                }
-            }
-        }
-    },
-
-    "kaspad-standalone-mining" : {
-        "description" : "Self-Contained Kaspad Mining",
-        "modules":{
-            "kaspad:kd0" : {
-                "reset-peers" : false,
-                "args":{
-                    "rpclisten" : "0.0.0.0:16110",
-                    "listen": "0.0.0.0:16111",
-                    "profile": 7000
-                }
-            },
-            "kaspad:kd1" : {
-                "reset-peers" : false,
-                "args":{
-                    "rpclisten":"0.0.0.0:16310",
-                    "listen": "0.0.0.0:16311",
-                    "profile": 7001,
-                    "connect": "0.0.0.0:16111"
-                }
-            },
-            "gpuminer:km0" : {
-                "args":{
-                    "mining-address" : "",
-                    "t": 1,
-                    "kaspad-address": "localhost",
-			        "port": "16110"
-                }
-            }
-        }
-    },
-    "kaspad-archival-only" : {
-        "description" : "Kaspad Archival Node",
-        "modules":{
-            "kaspad:kd0" : {
-                "reset-peers" : false,
-                "args":{
-                    "archival" : null,
-                    "rpclisten" : "0.0.0.0:16110",
-                    "listen": "0.0.0.0:16111",
-                    "profile": 7000
-                }
-            }
-        }
-    },
-    "kaspad-archival-mining" : {
-        "description" : "Kaspad Archival Node + Miner",
-        "modules":{
-            "kaspad:kd0" : {
-                "reset-peers" : false,
-                "args":{
-                    "archival" : null,
-                    "rpclisten" : "0.0.0.0:16110",
-                    "listen": "0.0.0.0:16111",
-                    "profile": 7000
-                }
-            },
-            "gpuminer:km0" : {
-                "args":{
-                    "mining-address" : "",
-                    "t": 1,
-                    "kaspad-address": "localhost",
-			        "port": "16110"
-                }
-            }
-        }
-    }
+	"karlsend-node-only": {
+		"description": "Karlsend Node",
+		"modules": {
+			"karlsend:kd0": {
+				"reset-peers": false,
+				"args":{
+					"rpclisten": "0.0.0.0:42110",
+					"listen": "0.0.0.0:42111",
+					"profile": 8110
+				}
+			}
+		}
+	},
+	"karlsend-archival-only" : {
+		"description": "Karlsend Archival Node",
+		"modules": {
+			"karlsend:kd0": {
+				"reset-peers": false,
+				"args": {
+					"archival": null,
+					"rpclisten": "0.0.0.0:42110",
+					"listen": "0.0.0.0:42111",
+					"profile": 8110
+				}
+			}
+		}
+	}
 }

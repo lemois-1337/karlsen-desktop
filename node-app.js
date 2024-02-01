@@ -18,7 +18,7 @@ class NodeApp extends App{
 			try {
 				console.log('purging'.brightMagenta,this.dataFolder.brightWhite);
 				await fse.remove(this.dataFolder);
-				await fse.remove(path.join(os.homedir(),'.kdx'));
+				await fse.remove(path.join(os.homedir(),'.karlsen-desktop'));
 				console.log('done'.brightGreen);
 				process.exit(0);
 			} catch(err) {
@@ -28,8 +28,8 @@ class NodeApp extends App{
 			return;
 		}
 
-		const KaspaProcessManager = require(path.join(this.appFolder, "lib/manager.js"));
-		this.manager = new KaspaProcessManager(null, this.dataFolder, this.appFolder);
+		const KarlsenProcessManager = require(path.join(this.appFolder, "lib/manager.js"));
+		this.manager = new KarlsenProcessManager(null, this.dataFolder, this.appFolder);
 
 		return new Promise((resolve, reject) => {
 			this.initDaemons();
@@ -41,7 +41,7 @@ class NodeApp extends App{
 	* initlizing data folder error handler
 	*/
 	dataDirInitError(){
-		console.error(`Please start app with --init=/path/to/data/dir or --init for default (~/.kdx/data)`.red);
+		console.error(`Please start app with --init=/path/to/data/dir or --init for default (~/.karlsen-desktop/data)`.red);
 		this.exit();
 	}
 

@@ -1,5 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 # ./docker -d to run in backedound
-
-sudo docker run $1 --cpuset-cpus="1" --cpus=0.5 --name=kdx --net host kdx
+sudo docker run $1 --cpuset-cpus="1" --cpus=0.5 --name=karlsen-desktop --net host karlsen-desktop

@@ -1,222 +1,208 @@
-# KDX
+# Karlsen Desktop
 
-KDX is a dedicated desktop process manager for [Kaspa node](https://github.com/kaspanet/kaspad).
+Karlsen Desktop is a dedicated desktop process manager for
+[Karlsen node](https://github.com/karlsen-network/karlsend).
 
+Karlsen Desktop process configuration (available via a simple JSON
+editor) allows user to specify command-line arguments for executables,
+as such it is possible to configure it to run multiple instances of
+Karlsen or potentially run multiple networks simultaneously (provided
+Karlsen nodes do not pro-actively auto-discover each-other).
 
-KDX offers a miniature console using which user can re-build the Kaspa stack, upgrading Kaspa to the latest version directly from GitHub. The build process is automated via a series of scripts that, if
-needed, fetch required tools (git, go, gcc) and build Kaspa on the host computer (the build includes various Kaspa utilities including `txgen`, `wallet`, `kaspactl` and others and can be executed against any specific Git branch).  KDX console can also be used to migrate Kasparov database if building a version with an updated database schema.
+Like many desktop applications, Karlsen Desktop can run in the tray
+bar, out of the way.
 
-KDX process configuration (available via a simple JSON editor) allows user to specify command-line arguments for executables, as such it is possible to configure KDX to run multiple instances of Kaspa or potentially run multiple networks simultaneously (provided Kaspa nodes do not pro-actively auto-discover each-other)
+Karlsen Desktop is built using [NWJS](https://nwjs.io) and is
+compatible Windows, Linux and Mac OS X.
 
-Like many desktop applications, KDX can run in the tray bar, out of the way.
+## Building Karlsen Desktop
 
-KDX is built using [NWJS](https://nwjs.io) and is compatible Windows, Linux and Mac OS X.
+## Pre-requisites
 
+* [Node.js 14.0.0+](https://nodejs.org/)
+* [Emanator](https://www.npmjs.com/package/emanator)
 
-## Building KDX
+**NOTE:** Karlsen Desktop build process builds and includes latest
+Karlsen binaries from Git master branches. To build from specific
+branches, you can use `--branch...` flags (see below).
 
-### Pre-requisites
+### Generating Karlsen Desktop installers
 
-- [Node.js 14.0.0+](https://nodejs.org/)
-- Emanator - `npm install emanator@latest`
-- Rust (latest, used for building kaspa miner at https://github.com/aspectron/kaspa-miner)
-- Cuda linraries for kaspa miner (depends on the platform)
+To build and deploy Karlsen Desktop production-ready builds, do the
+following:
 
-**NOTE:** KDX build process builds and includes latest Kaspa binaries from Git master branches. 
-To build from specific branches, you can use `--branch...` flags (see below).
-
-#### Generating KDX installers
 ```
+mkdir karlsen-build
+cd karlsen-build
 npm install emanator@latest
-git clone git@github.com:aspectron/kdx
-cd kdx
-# run emanate with one or multiple flags below
-#  --portable   create a portable zipped application
-#  --innosetup  generate Windows setup executable
-#  --dmg        generate a DMG image for Mac OS X
-#  --all        generate all OS compatible packages
-# following flags can be used to reset the environment
-#  --clean		clean build folders: purges cloned `GOPATH` folder
-#  --reset		`--clean` + deletes downloaded/cached NWJS and NODE binaries
-emanate [--portable | --innosetup | --dmg | --all]
+git clone https://github.com/karlsen-network/karlsen-desktop
+cd karlsen-desktop
 ```
 
+Emanator will help to create standalone desktop applications using
+NWJS. It accepts the following flags:
 
-DMG - Building DMG images on Mac OS requires `sudo` access in order to use system tools such as `diskutil` to generate images: 
-```
-sudo emanate --dmg
-```
+* `--portable` will create a portable zipped application.
+* `--innosetup` will generate Windows setup executable.
+* `--dmg` will generate a DMG image for macOS.
+* `--all` will generate all OS compatible packages.
 
-To build the windows portable deployment, run the following command:
-```
-emanate --portable
-```
+Additionally the following flags can be used to reset the environment:
 
-To build the Windows installer, you need to install [Innosetup](https://jrsoftware.org/isdl.php) and run:
-```
-emanate --innosetup
-```
+* `--clean` clean build folders: purges cloned `GOPATH` folder
+* `--reset` deletes downloaded/cached NWJS and NODE binaries
 
+The `--clean` and `--reset` can be combined to cleanup build folder
+and cached files.
 
-Emanator stores build files in the `~/emanator` folder
-
-#### Running KDX from development environment
-
-
-In addition to Node.js, please download and install [Latest NWJS SDK https://nwjs.io](https://nwjs.io/) - make sure that `nw` executable is available in the system PATH and that you can run `nw` from command line.
-
-On Linux / Darwin, as good way to install node and nwjs is as follows:
+DMG - Building DMG images on macOS requires `sudo` access in order to
+use system tools such as `diskutil` to generate images: 
 
 ```
-cd ~
+sudo ../node_modules/.bin/emanate build --dmg
+```
+
+To build the Windows portable deployment, run the following command:
+
+```
+../node_modules/.bin/emanate build --archive --portable
+```
+
+To build the Windows installer, you need to install
+[Innosetup](https://jrsoftware.org/isdl.php) and run:
+
+```
+../node_modules/.bin/emanate build --innosetup
+```
+
+Emanator stores build files in the `~/emanator` folder.
+
+### Running Karlsen Desktop from development environment
+
+In addition to Node.js (must be 14.0+), please download and install
+[Latest NWJS SDK https://nwjs.io](https://nwjs.io/) - make sure that
+`nw` executable is available in the system PATH and that you can run
+`nw` from command line.
+
+On Linux / Darwin, as good way to install `node` and `nwjs` is as
+follows:
+
+```
+cd ~/
 mkdir bin
 cd bin
 
-#node - (must be 14.0+)
 wget https://nodejs.org/dist/v14.4.0/node-v14.4.0-linux-x64.tar.xz
 tar xvf node-v14.4.0-linux-x64.tar.xz
 ln -s node-v14.4.0-linux-x64 node
 
-#nwjs
 wget https://dl.nwjs.io/v0.46.2/nwjs-sdk-v0.46.2-linux-x64.tar.gz
 tar xvf nwjs-sdk-v0.46.2-linux-x64.tar.gz
 ln -s nwjs-sdk-v0.46.2-linux-x64 nwjs
 
 ```
 Once done add the following to `~/.bashrc`
-```
-export PATH = /home/<user>/bin/node/bin:/home/<user>/bin/nwjs:$PATH
-```
-The above method allows you to deploy latest binaries and manage versions by re-targeting symlinks pointing to target folders.
 
-Once you have node and nwjs working, you can continue with KDX.
-
-KDX installation:
 ```
-npm install emanator@latest
-git clone git@github.com:aspectron/kdx
-cd kdx
+export PATH="~/bin/node/bin:~/bin/nwjs:${PATH}"
+```
+
+The above method allows you to deploy latest binaries and manage
+versions by re-targeting symlinks pointing to target folders.
+Once you have `node` and `nwjs` working, you can continue with
+Karlsen Desktop.
+
+Karlsen Desktop installation:
+
+```
+git clone https://github.com/karlsen-network/karlsen-desktop
+cd karlsen-desktop
 npm install
-emanate --local-binaries
+npm install emanator@latest
+node_modules/.bin/emanate --local-binaries
 nw .
 ```
 
-#### Building installers from specific Kaspa Git branches
+### Building installers from specific Karlsen Git branches
 
-`--branch` argument specifies common branch name for kaspa and kasparov, for example:
+The `--branch` argument specifies common branch name for Karlsen, for
+example:
+
 ```
-emanate --branch=v0.4.0-dev 
-```
-The branch for each repository can be overriden using `--branch-<repo-name>=<branch-name>` arguments as follows:
-```
-emanate --branch=v0.4.0-dev --branch-kaspad=v0.3.0-dev
-emanate --branch-miningsimulator=v0.1.2-dev
+node_modules/.bin/emanate --branch=2024_initial_karlsen_support
 ```
 
-**NOTE:** KDX `build` command in KDX console operates in the same manner and accepts `--branch...` arguments.
+The branch for each repository can be overriden using
+`--branch-<repo-name>=<branch-name>` arguments as follows:
 
+```
+emanate --branch=2024_initial_karlsen_support --branch-karlsend=2024_fixes_next
+```
 
-## KDX Process Manager
+## Karlsen Desktop Process Manager
 
 ### Configuration
 
-KDX runtime configuration is declared using a JSON object.  
+Karlsen Desktop runtime configuration is declared using a JSON object.
 
-Each instance of the process is declared using it's **type** (for example: `kaspad`) and a unique **identifier** (`kd0`).  Most process configuration objects support `args` property that allows
-passing arguments or configuration options directly to the process executable.  Depending on the process type, the configuration is passed via command line arguments (kasparov*) or configuration file (kaspad).
+Each instance of the process is declared using it's **type** (for
+example: `karlsend`) and a unique **identifier** (`kd0`). Most
+process configuration objects support `args` property that allows
+passing arguments or configuration options directly to the process
+executable. The configuration is passed via configuration file
+(karlsend).
 
 Supported process types:
-- `kaspad` - Kaspa full node
-- `kaspaminer` - Kaspa sha256 miner
+- `karlsend` - Karlsen full node
 
-**NOTE:** For Kaspa, to specify multiple connection endpoints, you must use an array of addresses as follows: ` "args" : { "connect" : [ "peer-addr-port-a", "peer-addr-port-b", ...] }`
+**NOTE:** For Karlsen, to specify multiple connection endpoints,
+you must use an array of addresses as follows: `"args" : { "connect" : [ "peer-addr-port-a", "peer-addr-port-b", ...] }`
 
-#### Default Configuration File
+### Default Configuration File
+
 ```js
 {
-	"kaspad:kd0": {
-		"args": {
-			"rpclisten": "0.0.0.0:16210",
-			"listen": "0.0.0.0:16211",
-			"profile": 7000,
-			"rpcuser": "user",
-			"rpcpass": "pass"
+	"description": "Karlsend Node",
+	"modules": {
+		"karlsend:kd0": {
+			"reset-peers": false,
+			"args": {
+				"rpclisten": "0.0.0.0:42110",
+				"listen": "0.0.0.0:42111",
+				"profile": 8110
+			},
+			"upnpEnabled": true
 		}
 	},
-	"kaspad:kd1": {
-		"args": {
-			"rpclisten": "0.0.0.0:16310",
-			"listen": "0.0.0.0:16311",
-			"profile": 7001,
-			"connect": "0.0.0.0:16211",
-			"rpcuser": "user",
-			"rpcpass": "pass"
-		}
-	},
-	"simulator:sim0": {
-        "blockdelay" : 2000,
-		"peers": [ "127.0.0.1:16310" ]
-	},
-	"pgsql:db0": {
-		"port": 18787
-	},
-	"mqtt:mq0": {
-		"port": 18792
-	},
-	"kasparovsyncd:kvsd0": {
-		"args": {
-			"rpcserver": "localhost:16310",
-			"dbaddress": "localhost:18787"
-			"mqttaddress": "localhost:18792",
-			"mqttuser" : "user",
-			"mqttpass" : "pass"
-		}
-	},
-	"kasparovd:kvd0": {
-		"args": {
-			"listen": "localhost:11224",
-			"rpcserver": "localhost:16310",
-			"dbaddress": "localhost:18787"
-		}
+	"ident": "karlsend-node-only",
+	"network": "mainnet",
+	"upnpEnabled": true,
+	"dataDir": "",
+	"theme": "light",
+	"invertTerminals": false,
+	"compounding": {
+		"auto": false,
+		"useLatestAddress": false
 	}
 }
 ```
 
 ### Data Storage
 
-KDX stores it's configuration file as `~/.kdx/config.json`.  Each configured process data is stored in `<datadir>/<process-type>-<process-identifier>` where `datadir` is a user-configurable location.  The default `datadir` location is `~/.kdx/data/`.  For example, `kaspad` process with identifier `kd0` will be stored in `~/.kdx/data/kaspad-kd0/` and it's logs in `~/.kdx/data/kaspad-kd0/logs/kaspad.log`
+Karlsen Desktop stores it's configuration file as
+`~/.karlsen-desktop/config.json`. Each configured process data is
+stored in `<datadir>/<process-type>-<process-identifier>` where
+`datadir` is a user-configurable location.  The default `datadir`
+location is `~/.karlsen-desktop/data/`.  For example, `karlsend`
+process with identifier `kd0` will be stored in
+`~/.karlsen-desktop/data/karlsend-kd0/` and it's logs in
+`~/.karlsen-desktop/data/karlsend-kd0/logs/karlsend.log`.
 
-### Kaspa Binaries
+### Karlsen Binaries
 
-KDX can run Kaspa from 2 locations - an integrated `bin` folder that is included with KDX redistributables and `~/.kdx/bin` folder that is created during the Kaspa build process. 
+Karlsen Desktop can run Karlsen from two locations:
 
-## KDX Console
-
-KDX Console provides following functionality:
-- Upgrading kasparov using `migrate` command
-- `start` and `stop` controls stack runtime
-- Kaspad RPC command execution
-- Use of test wallet app (KDX auto-configures kasparov address)
-- Rebuilding Kaspa software stack from within the console
-
-### Using Kaspad RPC
-
-Kaspad RPC can be accessed via KDX Console using the process identifier. For example:
-```
-$ kd0 help
-$ kd0 getinfo
-```
-Note that RPC methods are case insensitive.
-
-To supply RPC call arguments, you must supply and array of JSON-compliant values (numbers, double-quote-enclosed strings and 'true'/'false').  For example:
-```
-$ kd0 getblock "000000b22ce2fcea335cbaf5bc5e4911b0d4d43c1421415846509fc77ec643a7"
-{
-  "hash": "000000b22ce2fcea335cbaf5bc5e4911b0d4d43c1421415846509fc77ec643a7",
-  "confirmations": 83,
-  "size": 673,
-  "blueScore": 46241,
-  ...
-}
-```
-
+1. From integrated `bin` folder that is included with Karlsen
+   Desktop redistributables.
+2. Fron `~/.karlsen-desktop/bin` folder that is created during
+   the Karlsen build process.

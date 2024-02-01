@@ -1,17 +1,16 @@
-
-# OSX:
-# this script is useful when running KDX from shell and terminating it with Ctrl+C
-# as doing this may result in NWJS and Kaspa processes remaining in the background.
-#  
-
-kill -9 $(lsof -ti:7000)
+# macOS:
+#
+# this script is useful when running Karlsen Desktop from shell and terminating it
+# with Ctrl+C as doing this may result in NWJS and Karlsen processes remaining in
+# the background.
+kill -9 $(lsof -ti:8110)
 sleep 1
-kill -9 $(lsof -ti:7000)
+kill -9 $(lsof -ti:8110)
 sleep 1
-kill -9 $(lsof -ti:7000)
+kill -9 $(lsof -ti:8110)
 sleep 1
-kill -9 $(lsof -ti:7000)
+kill -9 $(lsof -ti:8110)
 sleep 1
-kill -9 $(lsof -ti:7000)
+kill -9 $(lsof -ti:8110)
 sleep 1
-kill -9 $(lsof -ti:7000)
+kill -9 $(lsof -ti:8110)

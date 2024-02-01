@@ -15,29 +15,29 @@ RUN apk add --no-cache python gcc make g++ build-base git lzo bzip2 openssl bash
 #RUN cd /usr/src/dagviz/k-explorer && npm install && npm link
 #RUN npm link k-explorer
 
-RUN addgroup -S kdx && adduser -S kdx -G kdx
+RUN addgroup -S karlsen-desktop && adduser -S karlsen-desktop -G karlsen-desktop
 RUN mkdir -p /run/postgresql
-RUN chown kdx:kdx /run/postgresql
+RUN chown karlsen-desktop:karlsen-desktop /run/postgresql
 
 # Tell docker that all future commands should run as the appuser user
 
-WORKDIR /home/kdx/releases/kdx
+WORKDIR /home/karlsen-desktop/releases/karlsen-desktop
 COPY . .
 RUN rm -rf node_modules
 RUN rm package-lock.json
-#RUN chown -R kdx:kdx .
+#RUN chown -R karlsen-desktop:karlsen-desktop .
 
 
 RUN npm install
-RUN npm install @aspectron/process-list
+RUN npm install @karlsen/process-list
 RUN npm install -g emanator@latest
 RUN emanate --local-binaries --no-ssh
 
 
-USER kdx
+USER karlsen-desktop
 
 EXPOSE 16210 16211 16310 16311 11224 18792 
 # 18787 
 # (pgsql - may conflict with other instances)
 
-ENTRYPOINT ["node","kdx.js","--init","--nice","--mine"]
+ENTRYPOINT ["node","karlsen-desktop.js","--init","--nice","--mine"]
